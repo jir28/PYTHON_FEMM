@@ -9,7 +9,7 @@
 
 ####################################################################################
 # PARTE1: CONSTRUCCIÓN DE LOS ELEMENTOS GEOMÉTRICOS EN DEVANADOS
-
+print("hi abraham")
 import femm
 from win32con import ABSOLUTE
 
