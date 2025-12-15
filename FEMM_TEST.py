@@ -21,7 +21,7 @@ femm.newdocument(1)
 
 # Definición de ei_probdef(units, type, precision, depth, minangle)
 # En la interfaz indicar con selección si es planar o axisimétrica la simulación
-
+x=1
 
 sele = 2  # Cambiar el valor según la simulación deseada
 
