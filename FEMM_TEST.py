@@ -32,11 +32,7 @@ elif sele == 2:
 
 # --------------------------------------|COMIENZO DIBUJO|-----------------------------------------
 
-
 # ====================== DATOS DE DISTANCIAS NUCLEO-DEVANADO HV ======================
-
-
-
 
 # ====================== DIBUJANDO DEVANADOS Y NUCLEO ======================
 
@@ -125,33 +121,242 @@ femm.ei_drawrectangle(DimIntTER / 2, movy - CABHV, DimIntREG / 2 + RadREG + movx
 
 # ====================== DIBUJANDO CILINDROS ======================
 
-# Cilindros
+# ---- CILINDROS ENTRE LA PIERNA DEL NÚCLEO Y TERCIARIO----
+diamintcil=785
+acumulado=0
 
- #cil 1
-dimintcil=785
+#cil 1 PRINCIPAL TERCIARIO
 esp=3
 dist_to_cil=12
-
 Alt_cil1=AltAxiTer+CABHV
 
-femm.ei_drawrectangle((dimintcil / 2)+dist_to_cil+movx, movy - CABHV,dimintcil/2+ esp+movx+dist_to_cil, Alt_cil1)
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
+
+
+#================================================================================
+# ---- CILINDROS ENTRE TERCIARIO Y BAJA TENSION----
+#nota: - Si son cilindros entre devanados se debe acumular la distancia
+diamintcil =867
+acumulado=0 #Cada que se inicia un nuevo devanado se reinicia el acumulado
 
 #cil 2
-dimintcil=867
-esp=2
-dist_to_cil=6
-
+esp =2
+dist_to_cil =6
 Alt_cil1=AltAxiTer+CABHV
 
-femm.ei_drawrectangle((dimintcil / 2)+dist_to_cil+movx, movy - CABHV,dimintcil/2+ esp+movx+dist_to_cil, Alt_cil1)
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
 
 #cil 3
-dimintcil=867
-esp=3
-dist_to_cil=6
-
+esp =3
+dist_to_cil =6
 Alt_cil1=AltAxiTer+CABHV
 
-femm.ei_drawrectangle((dimintcil / 2)+dist_to_cil+movx, movy - CABHV,dimintcil/2+ esp+movx+dist_to_cil, Alt_cil1)
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
+
+
+#================================================================================
+# ---- CILINDROS ENTRE BAJA Y ALTA TENSION----
+#nota: - Si son cilindros entre devanados se debe acumular la distancia
+diamintcil =1039
+acumulado=0 #Cada que se inicia un nuevo devanado se reinicia el acumulado
+
+#cil 4
+esp =2
+dist_to_cil =6
+Alt_cil1=AltAxiTer+CABHV
+
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
+
+#cil 5
+esp =1
+dist_to_cil =6
+Alt_cil1=AltAxiTer+CABHV
+
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
+
+#cil 6
+esp =1
+dist_to_cil =6
+Alt_cil1=AltAxiTer+CABHV
+
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
+
+#cil 7
+esp =1
+dist_to_cil =7
+Alt_cil1=AltAxiTer+CABHV
+
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
+
+
+#cil 8
+esp =1
+dist_to_cil =8
+Alt_cil1=AltAxiTer+CABHV
+
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
+
+
+#cil 9
+esp =1
+dist_to_cil =8
+Alt_cil1=AltAxiTer+CABHV
+
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
+
+#================================================================================
+# ---- CILINDROS ENTRE ALTA Y REGULACION DE ALTA TENSION----
+#nota: - Si son cilindros entre devanados se debe acumular la distancia
+diamintcil =1369
+acumulado=0 #Cada que se inicia un nuevo devanado se reinicia el acumulado
+
+#cil 10
+esp =2
+dist_to_cil =6
+Alt_cil1=AltAxiTer+CABHV
+
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
+
+#cil 11
+esp =2
+dist_to_cil =6
+Alt_cil1=AltAxiTer+CABHV
+
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
+
+#cil 12
+esp =2
+dist_to_cil =6
+Alt_cil1=AltAxiTer+CABHV
+
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
+
+#cil 13
+esp =2
+dist_to_cil =7
+Alt_cil1=AltAxiTer+CABHV
+
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
+
+#cil 14
+esp =4
+dist_to_cil =8
+Alt_cil1=AltAxiTer+CABHV
+
+x1cil=(diamintcil / 2)+dist_to_cil+movx
+x2cil=diamintcil/2+ esp+movx+dist_to_cil
+y1cil=movy - CABHV
+y2cil=Alt_cil1
+
+femm.ei_drawrectangle(x1cil+acumulado,y1cil ,x2cil+acumulado,y2cil )
+
+#actualizando el acumulado
+acumulado=acumulado+esp+dist_to_cil
+
+
 
 input("Simulación terminada. Presiona Enter para salir...")
