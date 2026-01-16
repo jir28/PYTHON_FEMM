@@ -16,7 +16,7 @@ femm.openfemm()
 femm.opendocument('roters1b.fem');
 femm.mi_saveas('temp.fem');
 
-n=160;
+n=10;
 stroke=1.5;
 x=[]
 f=[]
