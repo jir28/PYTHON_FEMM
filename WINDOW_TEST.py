@@ -31,6 +31,23 @@ class RadialBlock(QFrame):
         self.setLayout(self.layout)
         self.update_fields("Cilindro")
 
+    def set_data(self, data):
+        if data["tipo"] == "cilindro":
+            self.type_combo.setCurrentText("Cilindro")
+            self.d_int.setValue(data["d_int"])
+            self.e.setValue(data["espesor"])
+
+        else:
+            self.type_combo.setCurrentText("Devanado")
+            self.d_int.setValue(data["d_int"])
+            self.e.setValue(data["espesor"])
+            self.h.setValue(data["altura"])
+            self.v.setValue(data["tension"])
+            self.insulation.setCurrentText(data["aislamiento"])
+
+            if data["aislamiento"] == "Papel Kraft":
+                self.ins_thk.setValue(data.get("espesor_aislamiento", 1.0))
+
     def toggle_insulation_thickness(self, text):
         is_kraft = (text == "Papel Kraft")
         self.lbl_ins_thk.setVisible(is_kraft)
@@ -197,14 +214,23 @@ class MainWindow(QWidget):
         self.blocks = []
         self.n.setValue(5)
 
+    def collect_state(self):
+        return [b.get_data() for b in self.blocks]
+
     def build(self):
+        old_data = self.collect_state()
+
         for b in self.blocks:
             b.deleteLater()
         self.blocks.clear()
 
         for i in range(self.n.value()):
             block = RadialBlock(i)
-            block.setMinimumWidth(140)
+            block.setMinimumWidth(160)
+
+            if i < len(old_data):
+                block.set_data(old_data[i])
+
             self.blocks.append(block)
             self.hlayout.addWidget(block)
 
