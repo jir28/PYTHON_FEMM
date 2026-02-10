@@ -3,6 +3,8 @@ from  AislamientosGeo import drawanilloangular
 from  AislamientosGeo import drawminiangulo
 
 
+#-------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------
 def drawdevbase(AltVentanaNucleo,AltAxi, Radial, DiamInt,kraft,dy):
 #Devanado base sin miniangulos, anillo angular, etc.
 
@@ -42,7 +44,7 @@ def drawdevbase(AltVentanaNucleo,AltAxi, Radial, DiamInt,kraft,dy):
     femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo + AltAxi) / 2 + dy, 0.5 + kraft / 2)
     femm.ei_createradius(DiamInt / 2 + Radial + kraft / 2, (AltVentanaNucleo + AltAxi) / 2 + kraft / 2 + dy, 0.5)
 
-
+#-------------------------------------------------------------------------------------------------------------------------------------
 
 def drawdevanado(AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy):
     # Devanado con miniangulos, anillo angular, etc.
@@ -69,4 +71,201 @@ def drawdevanado(AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy):
             drawminiangulo(AltVentanaNucleo, AltAxi, Radial, DiamInt, axial_cond, kraft, dy)
 
 
+#-------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------
 
+def drawdevanadoRegGap(AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy,separacion):
+    ax = round(axial_cond - 1)
+
+    if kraft == 0:
+        # --------DEV SIN AISLAMIENTO DE PAPEL--------
+        # --------DEV SIN AISLAMIENTO--------
+
+        # ================dev sup================
+        femm.ei_drawrectangle(DiamInt / 2, (AltVentanaNucleo + separacion) / 2+dy, DiamInt / 2 + Radial,
+                              (AltVentanaNucleo + AltAxi) / 2+dy)
+
+        # --------CORNERS--------
+        # crea corner inf izq
+        femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo + separacion) / 2+dy, 0.5)
+        # crea corner inf derec
+        femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo + separacion+dy) / 2, 0.5)
+        # crea corner sup izq
+        femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo + AltAxi) / 2+dy, 0.5)
+        # crea corner sup derech
+        femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo + AltAxi) / 2+dy, 0.5)
+
+        # ==============dev inf==================
+        femm.ei_drawrectangle(DiamInt / 2, (AltVentanaNucleo - AltAxi) / 2+dy, DiamInt / 2 + Radial,
+                              (AltVentanaNucleo - separacion) / 2+dy)
+        # --------CORNERS--------
+        # crea corner inf izq
+        femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo - AltAxi) / 2+dy, 0.5)
+        # crea corner inf derec
+        femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo - AltAxi) / 2+dy, 0.5)
+        # crea corner sup izq
+        femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo - separacion) / 2+dy, 0.5)
+        # crea corner sup derech
+        femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo - separacion) / 2+dy, 0.5)
+
+        # --------ANILLO ANGULAR SUP- REG SUP--------
+        femm.ei_drawline(DiamInt / 2, (AltVentanaNucleo + AltAxi) / 2 + 1 - ax+dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo + AltAxi) / 2 + 1 - ax+dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo + AltAxi) / 2 + 1 - ax+dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo + AltAxi) / 2 + 1+dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo + AltAxi) / 2 + 1+dy, DiamInt / 2 + Radial + 1,
+                         (AltVentanaNucleo + AltAxi) / 2 + 1+dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo + AltAxi) / 2 + 1+dy, DiamInt / 2 + Radial + 1,
+                         (AltVentanaNucleo + AltAxi) / 2 + 1 - ax+dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo + AltAxi) / 2 + 1 - ax+dy, DiamInt / 2 + Radial,
+                         (AltVentanaNucleo + AltAxi) / 2 + 1 - ax+dy)
+        femm.ei_createradius(DiamInt / 2 - 1, (AltVentanaNucleo + AltAxi) / 2 + 1+dy, 0.5 + 1)
+        femm.ei_createradius(DiamInt / 2 + Radial + 1, (AltVentanaNucleo + AltAxi) / 2 + 1+dy, 0.5 + 1)
+        # --------ANILLO ANGULAR INF- REG SUP--------
+        femm.ei_drawline(DiamInt / 2, (AltVentanaNucleo + separacion) / 2 + 1 + ax+dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo + separacion) / 2 + 1 + ax+dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo + separacion) / 2 + 1 + ax+dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo + separacion) / 2 - 1+dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo + separacion) / 2 - 1+dy, DiamInt / 2 + Radial + 1,
+                         (AltVentanaNucleo + separacion) / 2 - 1+dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo + separacion) / 2 + ax + 1+dy,
+                         DiamInt / 2 + Radial + 1, (AltVentanaNucleo + separacion) / 2 - 1+dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo + separacion) / 2 + ax + 1+dy, DiamInt / 2 + Radial,
+                         (AltVentanaNucleo + separacion) / 2 + ax + 1+dy)
+        femm.ei_createradius(DiamInt / 2 - 1, (AltVentanaNucleo + separacion) / 2+dy, 0.5 + 1)
+        femm.ei_createradius(DiamInt / 2 + Radial + 1, (AltVentanaNucleo + separacion) / 2+dy, 0.5 + 1)
+
+        # --------ANILLO ANGULAR SUP- REG INF--------
+        femm.ei_drawline(DiamInt / 2, (AltVentanaNucleo - AltAxi) / 2 - 1 + ax+dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo - AltAxi) / 2 - 1 + ax+dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo - AltAxi) / 2 - 1 + ax+dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo - AltAxi) / 2 - 1+dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo - AltAxi) / 2 - 1+dy, DiamInt / 2 + Radial + 1,
+                         (AltVentanaNucleo - AltAxi) / 2 - 1+dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - AltAxi) / 2 - 1+dy, DiamInt / 2 + Radial + 1,
+                         (AltVentanaNucleo - AltAxi) / 2 - 1 + ax+dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - AltAxi) / 2 - 1 + ax+dy, DiamInt / 2 + Radial,
+                         (AltVentanaNucleo - AltAxi) / 2 - 1 + ax+dy)
+        femm.ei_createradius(DiamInt / 2 - 1, (AltVentanaNucleo - AltAxi) / 2 - 1+dy, 0.5 + 1)
+        femm.ei_createradius(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - AltAxi) / 2 - 1+dy, 0.5 + 1)
+        # --------ANILLO ANGULAR INF- REG INF--------
+        femm.ei_drawline(DiamInt / 2, (AltVentanaNucleo - separacion) / 2 - 1 - ax+dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo - separacion) / 2 - 1 - ax+dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo - separacion) / 2 - 1 - ax+dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo - separacion) / 2 + 1+dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo - separacion) / 2 + 1+dy, DiamInt / 2 + Radial + 1,
+                         (AltVentanaNucleo - separacion) / 2 + 1+dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - separacion) / 2 - ax - 1+dy,
+                         DiamInt / 2 + Radial + 1, (AltVentanaNucleo - separacion) / 2 + 1+dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - separacion) / 2 - ax - 1+dy, DiamInt / 2 + Radial,
+                         (AltVentanaNucleo - separacion) / 2 - ax - 1+dy)
+        femm.ei_createradius(DiamInt / 2 - 1, (AltVentanaNucleo - separacion) / 2+dy, 0.5 + 1)
+        femm.ei_createradius(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - separacion) / 2+dy, 0.5 + 1)
+
+
+    else:
+        # --------DEV CON AISLAMIENTO DE PAPEL--------
+        # --------DEV CON AISLAMIENTO--------
+        # ================dev sup================
+        femm.ei_drawrectangle(DiamInt / 2, (AltVentanaNucleo + separacion) / 2+dy, DiamInt / 2 + Radial,
+                              (AltVentanaNucleo + AltAxi) / 2+dy)
+        femm.ei_drawrectangle(DiamInt / 2 + kraft / 2, (AltVentanaNucleo + separacion) / 2 + kraft / 2+dy,
+                              DiamInt / 2 + Radial - kraft / 2, (AltVentanaNucleo + AltAxi) / 2 - kraft / 2+dy)
+
+        # --------CORNERS--------
+        # crea corner inf izq
+        femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo + separacion) / 2+dy, 0.5 + kraft / 2)
+        femm.ei_createradius(DiamInt / 2 + kraft / 2, (AltVentanaNucleo + separacion) / 2 + kraft / 2+dy, 0.5)
+
+        # crea corner inf derec
+        femm.ei_createradius(DiamInt / 2 + Radial + kraft / 2, (AltVentanaNucleo + separacion) / 2 + kraft / 2+dy,
+                             0.5 + kraft / 2)
+        femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo + separacion) / 2+dy, 0.5)
+
+        # crea corner sup izq
+        femm.ei_createradius(DiamInt / 2 + kraft / 2, (AltVentanaNucleo + AltAxi) / 2 + kraft / 2+dy, 0.5 + kraft / 2)
+        femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo + AltAxi) / 2+dy, 0.5)
+
+        # crea corner sup derech
+        femm.ei_createradius(DiamInt / 2 + Radial + kraft / 2, (AltVentanaNucleo + AltAxi) / 2 + kraft / 2+dy,
+                             0.5 + kraft / 2)
+        femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo + AltAxi) / 2+dy, 0.5)
+
+        # ==============dev inf==================
+        femm.ei_drawrectangle(DiamInt / 2 + kraft / 2, (AltVentanaNucleo - AltAxi) / 2 + kraft / 2+dy,
+                              DiamInt / 2 + Radial - kraft / 2, (AltVentanaNucleo - separacion) / 2 - kraft / 2+dy)
+        femm.ei_drawrectangle(DiamInt / 2, (AltVentanaNucleo - AltAxi) / 2+dy, DiamInt / 2 + Radial,
+                              (AltVentanaNucleo - separacion) / 2+dy)
+
+        # --------CORNERS--------
+        # crea corner inf izq
+        femm.ei_createradius(DiamInt / 2 + kraft / 2, (AltVentanaNucleo - AltAxi) / 2 + kraft / 2+dy, 0.5)
+        femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo - AltAxi) / 2+dy, 0.5 + kraft / 2)
+
+        # crea corner inf derec
+        femm.ei_createradius(DiamInt / 2 + Radial + kraft / 2, (AltVentanaNucleo - AltAxi) / 2 + kraft / 2+dy,
+                             0.5 + kraft / 2)
+        femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo - AltAxi) / 2+dy, 0.5)
+
+        # crea corner sup izq
+        femm.ei_createradius(DiamInt / 2 + kraft / 2, (AltVentanaNucleo - separacion) / 2 + kraft / 2+dy, 0.5 + kraft / 2)
+        femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo - separacion) / 2+dy, 0.5)
+
+        # crea corner sup derech
+        femm.ei_createradius(DiamInt / 2 + Radial + kraft / 2, (AltVentanaNucleo - separacion) / 2 + kraft / 2+dy,
+                             0.5 + kraft / 2)
+        femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo - separacion) / 2+dy, 0.5)
+
+        # --------ANILLO ANGULAR SUP- REG SUP--------
+        femm.ei_drawline(DiamInt / 2, (AltVentanaNucleo + AltAxi) / 2 + 1 - ax + dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo + AltAxi) / 2 + 1 - ax + dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo + AltAxi) / 2 + 1 - ax + dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo + AltAxi) / 2 + 1 + dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo + AltAxi) / 2 + 1 + dy, DiamInt / 2 + Radial + 1,
+                         (AltVentanaNucleo + AltAxi) / 2 + 1 + dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo + AltAxi) / 2 + 1 + dy, DiamInt / 2 + Radial + 1,
+                         (AltVentanaNucleo + AltAxi) / 2 + 1 - ax + dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo + AltAxi) / 2 + 1 - ax + dy, DiamInt / 2 + Radial,
+                         (AltVentanaNucleo + AltAxi) / 2 + 1 - ax + dy)
+        femm.ei_createradius(DiamInt / 2 - 1, (AltVentanaNucleo + AltAxi) / 2 + 1 + dy, 0.5 + 1)
+        femm.ei_createradius(DiamInt / 2 + Radial + 1, (AltVentanaNucleo + AltAxi) / 2 + 1 + dy, 0.5 + 1)
+        # --------ANILLO ANGULAR INF- REG SUP--------
+        femm.ei_drawline(DiamInt / 2, (AltVentanaNucleo + separacion) / 2 + 1 + ax + dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo + separacion) / 2 + 1 + ax + dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo + separacion) / 2 + 1 + ax + dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo + separacion) / 2 - 1 + dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo + separacion) / 2 - 1 + dy, DiamInt / 2 + Radial + 1,
+                         (AltVentanaNucleo + separacion) / 2 - 1 + dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo + separacion) / 2 + ax + 1 + dy,
+                         DiamInt / 2 + Radial + 1, (AltVentanaNucleo + separacion) / 2 - 1 + dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo + separacion) / 2 + ax + 1 + dy, DiamInt / 2 + Radial,
+                         (AltVentanaNucleo + separacion) / 2 + ax + 1 + dy)
+        femm.ei_createradius(DiamInt / 2 - 1, (AltVentanaNucleo + separacion) / 2 + dy, 0.5 + 1)
+        femm.ei_createradius(DiamInt / 2 + Radial + 1, (AltVentanaNucleo + separacion) / 2 + dy, 0.5 + 1)
+
+        # --------ANILLO ANGULAR SUP- REG INF--------
+        femm.ei_drawline(DiamInt / 2, (AltVentanaNucleo - AltAxi) / 2 - 1 + ax + dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo - AltAxi) / 2 - 1 + ax + dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo - AltAxi) / 2 - 1 + ax + dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo - AltAxi) / 2 - 1 + dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo - AltAxi) / 2 - 1 + dy, DiamInt / 2 + Radial + 1,
+                         (AltVentanaNucleo - AltAxi) / 2 - 1 + dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - AltAxi) / 2 - 1 + dy, DiamInt / 2 + Radial + 1,
+                         (AltVentanaNucleo - AltAxi) / 2 - 1 + ax + dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - AltAxi) / 2 - 1 + ax + dy, DiamInt / 2 + Radial,
+                         (AltVentanaNucleo - AltAxi) / 2 - 1 + ax + dy)
+        femm.ei_createradius(DiamInt / 2 - 1, (AltVentanaNucleo - AltAxi) / 2 - 1 + dy, 0.5 + 1)
+        femm.ei_createradius(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - AltAxi) / 2 - 1 + dy, 0.5 + 1)
+        # --------ANILLO ANGULAR INF- REG INF--------
+        femm.ei_drawline(DiamInt / 2, (AltVentanaNucleo - separacion) / 2 - 1 - ax + dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo - separacion) / 2 - 1 - ax + dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo - separacion) / 2 - 1 - ax + dy, DiamInt / 2 - 1,
+                         (AltVentanaNucleo - separacion) / 2 + 1 + dy)
+        femm.ei_drawline(DiamInt / 2 - 1, (AltVentanaNucleo - separacion) / 2 + 1 + dy, DiamInt / 2 + Radial + 1,
+                         (AltVentanaNucleo - separacion) / 2 + 1 + dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - separacion) / 2 - ax - 1 + dy,
+                         DiamInt / 2 + Radial + 1, (AltVentanaNucleo - separacion) / 2 + 1 + dy)
+        femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - separacion) / 2 - ax - 1 + dy, DiamInt / 2 + Radial,
+                         (AltVentanaNucleo - separacion) / 2 - ax - 1 + dy)
+        femm.ei_createradius(DiamInt / 2 - 1, (AltVentanaNucleo - separacion) / 2 + dy, 0.5 + 1)
+        femm.ei_createradius(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - separacion) / 2 + dy, 0.5 + 1)

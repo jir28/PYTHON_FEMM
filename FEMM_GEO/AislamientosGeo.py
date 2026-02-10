@@ -1,6 +1,6 @@
 import femm
-
-
+#-------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------
 def drawminiangulo(AltVentanaNucleo,AltAxi, Radial, DiamInt, axial_cond,kraft,dy):
     l_recomp = Radial - 19 * 2 - 4
     ax = round(axial_cond - 1)
@@ -171,6 +171,8 @@ def drawminiangulo(AltVentanaNucleo,AltAxi, Radial, DiamInt, axial_cond,kraft,dy
         # crea corner sup derc
         femm.ei_createradius(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - AltAxi) / 2 - 1+ dy, 0.5 + 1 + kraft / 2)
 
+#-------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------
 def drawanilloangular(AltVentanaNucleo,AltAxi, Radial, DiamInt, axial_cond,kraft,dy):
     ax = round(axial_cond - 1)
     if kraft== 0:
@@ -209,3 +211,6 @@ def drawanilloangular(AltVentanaNucleo,AltAxi, Radial, DiamInt, axial_cond,kraft
         femm.ei_drawline(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - AltAxi) / 2 - 1 + ax+dy, DiamInt / 2 + Radial,(AltVentanaNucleo - AltAxi) / 2 - 1 + ax+dy)
         femm.ei_createradius(DiamInt / 2 - 1, (AltVentanaNucleo - AltAxi) / 2 - 1+dy, 0.5+ kraft/2+1)
         femm.ei_createradius(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - AltAxi) / 2 - 1+dy, 0.5+ kraft/2+1)
+
+#-------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------
