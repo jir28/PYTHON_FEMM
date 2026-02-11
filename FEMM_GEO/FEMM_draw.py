@@ -37,7 +37,7 @@ CabinfAT=80+80
 femm.ei_drawrectangle(DiametroNucleo/2,0, AnchVentanaNucleo, AltVentanaNucleo)
 
 #desplazamiento del centro de la ventana por cabeceras en la vertical
-dy=AltVentanaNucleo/2-CabSupAT-(AltVentanaNucleo-CabSupAT-CabinfAT)/2
+dy=-abs(AltVentanaNucleo/2-CabSupAT-(AltVentanaNucleo-CabSupAT-CabinfAT)/2)
 
 # Agregar arcos en las esquinas internas del núcleo
     #femm.ei_drawarc(DiametroNucleo/2,0, AnchVentanaNucleo, AltVentanaNucleo,90,1)
@@ -53,7 +53,7 @@ DiamInt=777
 
 axial_cond=14.2
 
-kraft=0.46
+kraft=1.2
 drawdevanado(AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy)
 
 

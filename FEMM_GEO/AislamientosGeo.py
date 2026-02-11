@@ -31,6 +31,7 @@ def drawminiangulo(AltVentanaNucleo,AltAxi, Radial, DiamInt, axial_cond,kraft,dy
                          DiamInt / 2 + Radial / 2 - l_recomp / 2 - 2 - 19, (AltVentanaNucleo + AltAxi) / 2 + 1 - ax + dy)
         # corners
         # crea corner sup izq
+
         femm.ei_createradius(DiamInt / 2 - 1, (AltVentanaNucleo + AltAxi) / 2 + 1 + dy, 0.5 + 1)
 
         # miniangulo capa
