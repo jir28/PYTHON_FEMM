@@ -108,9 +108,9 @@ drawdevanadoRegGap(AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy,
     #c1
 altaxicil=1860
 radialCil=3
-DimInt=735 #este parámetro lo calcula el usuario
+DimInt=735+12*2 #este parámetro lo calcula el usuario
 
-DistToCil=DimInt/2+12
+DistToCil=DimInt/2
 
 femm.ei_drawrectangle(DistToCil,(AltVentanaNucleo-altaxicil)/2,DistToCil+radialCil , (AltVentanaNucleo+altaxicil)/2)
 
