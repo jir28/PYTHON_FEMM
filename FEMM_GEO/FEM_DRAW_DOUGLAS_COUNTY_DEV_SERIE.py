@@ -53,15 +53,6 @@ drawdevanado("boundary1",Boundaryvoltage,AltVentanaNucleo,AltAxi, Radial,axial_c
 
 
 
-#------------- Cilindros entre Pierna y dev serie
-    #c1
-altaxicil=600+30+25
-radialCil=3
-DimInt=305+9*2 #este parámetro lo calcula el usuario
-
-
-drawcilindro(DimInt,AltVentanaNucleo,altaxicil, radialCil,dy)
-
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 #-----------------------------------------------------------------Dibujando dev común-----------------------------------------------------------------------------------#
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------#
@@ -76,6 +67,18 @@ kraft=0.0
 drawdevanado("boundary2",Boundaryvoltage,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy)
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+#------------- Cilindros entre Pierna y dev serie
+    #c1
+altaxicil=600+30+25
+radialCil=3
+DimInt=305+9*2 #este parámetro lo calcula el usuario
+
+
+drawcilindro(DimInt,AltVentanaNucleo,altaxicil, radialCil,dy)
+
+
 #------------- Cilindros entre serie y dev comun
     #c2
 altaxicil=600+30+24
