@@ -20,14 +20,14 @@ materials()
 # Definición de ei_probdef(units, type, precision, depth, minangle)
 # En la interfaz indicar con selección si es planar o axisimétrica la simulación
 
-#sele = 2  # Cambiar el valor según la simulación deseada
+sele = 2  # Cambiar el valor según la simulación deseada
 
-#if sele == 1:
-#    femm.ei_probdef('millimeters', 'planar', 10 ** (-8), 10 ** 6, 30)
-#   print("Conf: Milímetros, Planar, 1e-8, 30")
-#elif sele == 2:
-#   femm.ei_probdef('millimeters', 'axi', 10 ** (-8), 0, 30)
-#   print("Conf: Milímetros, Axisimétrica, 1e-8, 30")
+if sele == 1:
+    femm.ei_probdef('millimeters', 'planar', 10 ** (-8), 10 ** 6, 30)
+    print("Conf: Milímetros, Planar, 1e-8, 30")
+elif sele == 2:
+    femm.ei_probdef('millimeters', 'axi', 10 ** (-8), 0, 30)
+    print("Conf: Milímetros, Axisimétrica, 1e-8, 30")
 
 # --------------------------------------|COMIENZO DIBUJO|-----------------------------------------
 #------------Dibujando nucleo------------#
@@ -46,9 +46,10 @@ AltAxi=600
 Radial=47
 DiamInt=345
 axial_cond=10.886
+Boundaryvoltage=5000
 
-kraft=0.0
-drawdevanado("boundary1",50,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy)
+kraft=0.5
+drawdevanado("boundary1",Boundaryvoltage,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy)
 
 
 
@@ -57,7 +58,6 @@ drawdevanado("boundary1",50,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,
 altaxicil=600+30+25
 radialCil=3
 DimInt=305+9*2 #este parámetro lo calcula el usuario
-
 
 
 drawcilindro(DimInt,AltVentanaNucleo,altaxicil, radialCil,dy)
@@ -69,9 +69,11 @@ AltAxi=600
 Radial=83
 DiamInt=499
 axial_cond=13.336
+Boundaryvoltage=80000
+
 
 kraft=0.0
-drawdevanado("kaka",1000,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy)
+drawdevanado("boundary2",Boundaryvoltage,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy)
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 #------------- Cilindros entre serie y dev comun

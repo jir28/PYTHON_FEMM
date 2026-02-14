@@ -3,7 +3,7 @@
 import femm
 
 
-def defboundary(boundary_name, voltage, segment_points):
+def defboundary(boundary_name, voltage, segment_points ,GRUPO_FRONTERA):
     """
     Asigna un boundary a varios segmentos en FEMM (electrostática)
 
@@ -15,10 +15,10 @@ def defboundary(boundary_name, voltage, segment_points):
     # Crear boundary
 
     # femm.ei_setsegmentprop(boundary_name, element_size, automesh, hide,GRUPO_FRONTERA )
-    femm.ei_addboundprop(boundary_name, voltage, 0, 0, 0, "1")
+    femm.ei_addboundprop(boundary_name, voltage, 0, 0, 0, "0")
 
     # Número de grupo para seleccionar todos los segmentos juntos
-    GRUPO_FRONTERA = 1
+
 
     # Recorrer todos los puntos y asignar boundary
     for (x, y) in segment_points:

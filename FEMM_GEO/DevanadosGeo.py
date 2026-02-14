@@ -13,87 +13,75 @@ def drawdevbase(boundary_name,voltage,AltVentanaNucleo,AltAxi, Radial, DiamInt,k
  if kraft == 0:
      femm.ei_drawrectangle(DiamInt / 2, (AltVentanaNucleo - AltAxi) / 2 + dy, DiamInt / 2 + Radial,
                            (AltVentanaNucleo + AltAxi) / 2 + dy)
-     # --------CORNERS--------
-     # crea corner inf izq
-     femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo - AltAxi) / 2 + dy, 0.5)
-     # crea corner sup izq
-     femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo + AltAxi) / 2 + dy, 0.5)
-     # crea corner inf derec
-     femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo - AltAxi) / 2 + dy, 0.5)
-     # crea corner sup derech
-     femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo + AltAxi) / 2 + dy, 0.5)
 
      #no mallar devanado
      nomesh((DiamInt / 2 + Radial/2),AltVentanaNucleo/2)
-     # def boundary
-     xc=DiamInt/2+0.5
-     yc=(AltVentanaNucleo+AltAxi)/2-0.5
-     R=0.5
-     pi = math.pi
-     theta_start=pi/2
-     theta_end=pi
-     theta_mid = (theta_start + theta_end) / 2
-     x1 =xc + R*math.cos(theta_mid)
-     y1 =yc + R*math.sin(theta_mid)
 
-     x2 =DiamInt/2+Radial/2
-     y2 =(AltVentanaNucleo+AltAxi)/2
+     # Definiendo boundaries
+     x1=(DiamInt / 2 + Radial/2)
+     y1=(AltVentanaNucleo + AltAxi) / 2+dy
 
-     xc = DiamInt / 2 + Radial - 0.5
-     yc = (AltVentanaNucleo + AltAxi) / 2 - 0.5
-     R = 0.5
-     pi = math.pi
-     theta_start = pi / 2
-     theta_end = 2*pi
-     theta_mid = (theta_start + theta_end) / 2
-     x3 = xc + R * math.cos(theta_mid)
-     y3 = yc + R * math.sin(theta_mid)
+     x2=(DiamInt / 2 + Radial)
+     y2=AltVentanaNucleo/2+dy
 
-     x4 = DiamInt / 2 + Radial
-     y4 =(AltVentanaNucleo)/2
+     x3=(DiamInt / 2 + Radial/2)
+     y3=(AltVentanaNucleo - AltAxi)/2+dy
 
-     xc = DiamInt / 2 + Radial - 0.5
-     yc = (AltVentanaNucleo - AltAxi) / 2 + 0.5
-     R = 0.5
-     pi = math.pi
-     theta_start = 2*pi
-     theta_end = 3 * pi/2
-     theta_mid = (theta_start + theta_end) / 2
-     x5 = xc + R * math.cos(theta_mid)
-     y5 = yc + R * math.sin(theta_mid)
-
-     x6 =DiamInt / 2 + Radial/2
-     y6 =(AltVentanaNucleo - AltAxi) / 2
-
-     xc = DiamInt / 2 + 0.5
-     yc = (AltVentanaNucleo - AltAxi) / 2 + 0.5
-     R = 0.5
-     theta_start = 3 * pi/2
-     theta_end = pi
-     theta_mid = (theta_start + theta_end) / 2
-     x7 = xc + R * math.cos(theta_mid)
-     y7 = yc + R * math.sin(theta_mid)
-
-     x8 =DiamInt / 2
-     y8 =(AltVentanaNucleo - AltAxi) / 2
+     x4=DiamInt / 2
+     y4=AltVentanaNucleo/2+dy
 
      segment_points = [
          (x1, y1),
          (x2, y2),
          (x3, y3),
-         (x4, y4),
-         (x5, y5),
-         (x6, y6),
-         (x7, y7),
-         (x8, y8)
+         (x4, y4)
      ]
-     defboundary(boundary_name, voltage, segment_points)
+
+     defboundary(boundary_name, voltage, segment_points,50)
+
+     # -------- CREANDO LOS CORNERS CON LAS BOUNDARIES ASIGNADAS--------
+     # crea corner inf izq
+     femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo - AltAxi) / 2 + dy, 0.5)
+     # crea corner sup izq
+     femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo + AltAxi) / 2 + dy, 0.5)
+
+     # crea corner inf derec
+     femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo - AltAxi) / 2 + dy, 0.5)
+     # crea corner sup derech
+     femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo + AltAxi) / 2 + dy, 0.5)
+
+
  else:
     femm.ei_drawrectangle(DiamInt / 2, (AltVentanaNucleo - AltAxi) / 2 + dy, DiamInt / 2 + Radial,(AltVentanaNucleo + AltAxi) / 2 + dy)
 
     femm.ei_drawrectangle(DiamInt / 2 + kraft / 2, (AltVentanaNucleo - AltAxi) / 2 + kraft / 2 + dy,DiamInt / 2 + Radial - kraft / 2, (AltVentanaNucleo + AltAxi) / 2 - kraft / 2 + dy)
 
-    # --------CORNERS--------
+    # no mallar devanado
+    nomesh((DiamInt / 2 + Radial / 2), AltVentanaNucleo / 2)
+
+    # Definiendo boundaries
+    x1 = (DiamInt / 2 + Radial / 2)
+    y1 = (AltVentanaNucleo + AltAxi) / 2 + dy-0.5
+
+    x2 = (DiamInt / 2 + Radial)-0.5
+    y2 = AltVentanaNucleo / 2 + dy
+
+    x3 = (DiamInt / 2 + Radial / 2)
+    y3 = (AltVentanaNucleo - AltAxi) / 2 + dy+0.5
+
+    x4 = DiamInt / 2+0.5
+    y4 = AltVentanaNucleo / 2 + dy
+
+    segment_points = [
+        (x1, y1),
+        (x2, y2),
+        (x3, y3),
+        (x4, y4)
+    ]
+
+    defboundary(boundary_name, voltage, segment_points,50)
+
+    # -------- CREANDO LOS CORNERS CON LAS BOUNDARIES ASIGNADAS--------
     # crea corner inf izq
     femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo - AltAxi) / 2 + dy, 0.5 + kraft / 2)
     femm.ei_createradius(DiamInt / 2 + kraft / 2, (AltVentanaNucleo - AltAxi) / 2 + kraft / 2 + dy, 0.5)

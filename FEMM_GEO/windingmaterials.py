@@ -4,10 +4,17 @@ import femm
 
 
 def materials():
-    femm.ei_addmaterial('OilM', 2.2, 0, 0)
-    femm.ei_addmaterial('TIV', 4.5, 0, 0)
-    femm.ei_addmaterial('Weidmann', 3.8, 0, 0)
-    femm.ei_addmaterial('kraftsolid', 3.2, 0, 0)
+
+    oil=2.2
+    Tiv=4.5
+    weidmann=3.8
+    Kraftsolid=3.2
+
+
+    femm.ei_addmaterial('OilM', oil, oil, 0)
+    femm.ei_addmaterial('TIV',  Tiv,  Tiv, 0)
+    femm.ei_addmaterial('Weidmann',  weidmann,  weidmann, 0)
+    femm.ei_addmaterial('kraftsolid',  Kraftsolid,  Kraftsolid, 0)
 
 
 def asignmaterials(type,x,y,meshsize,group):
@@ -19,7 +26,7 @@ def asignmaterials(type,x,y,meshsize,group):
 
 
 def nomesh(x,y):
-    GRUPO_FRONTERA=100
+    GRUPO_FRONTERA=500
     femm.ei_addblocklabel(x, y)  # punto dentro
     femm.ei_selectlabel(x, y)
     femm.ei_setblockprop("<No Mesh>", 0, 0, GRUPO_FRONTERA)
