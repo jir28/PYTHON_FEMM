@@ -46,9 +46,9 @@ AltAxi=600
 Radial=47
 DiamInt=345
 axial_cond=10.886
-Boundaryvoltage=5000
+Boundaryvoltage=50000
 
-kraft=0.5
+kraft=0.0
 drawdevanado("boundary1",Boundaryvoltage,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy)
 
 
@@ -106,6 +106,17 @@ radialCil=2
 DimInt=665+(6*2+2*2+9*2) #este parámetro lo calcula el usuario
 
 drawcilindro(DimInt,AltVentanaNucleo,altaxicil, radialCil,dy)
+
+
+
+
+#EJECUTRANDO SOLUCION Y MUESTRA DE RESULTADOS
+femm.ei_zoomnatural()
+femm.ei_saveas("estudio.fee")
+femm.ei_createmesh()     # Genera la malla
+femm.ei_showmesh()       # Ocultar la malla
+femm.ei_analyze()        # Analizar
+femm.ei_loadsolution()   # Cargarsolucion
 
 
 input("Simulación terminada. Presiona Enter para salir...")
