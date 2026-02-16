@@ -188,10 +188,17 @@ def drawminiangulo(AltVentanaNucleo,AltAxi, Radial, DiamInt, axial_cond,kraft,dy
 
 
         # Asignar material
-        asignmaterials('Weidmann',(DiamInt/2 + Radial / 2), (AltVentanaNucleo + AltAxi) / 2 + dy + 0.5, 1,3)
-        asignmaterials('Weidmann',(DiamInt/2 + Radial / 2), (AltVentanaNucleo - AltAxi) / 2 + dy - 0.5, 1,3)
-        asignmaterials('Weidmann',(DiamInt/2-0.5), (AltVentanaNucleo - AltAxi) / 2 + dy + ax/2, 1,3)
-        asignmaterials('Weidmann',(DiamInt/2+Radial+0.5), (AltVentanaNucleo - AltAxi) / 2 + dy+ ax/2 , 1,3)
+        # asignar material
+        # -compensador superior
+        asignmaterials('Weidmann', (DiamInt / 2 + Radial / 2), (AltVentanaNucleo + AltAxi) / 2 + dy + 0.5, 1, 3)
+        # -compensador inferior
+        asignmaterials('Weidmann', (DiamInt / 2 + Radial / 2), (AltVentanaNucleo - AltAxi) / 2 + dy - 0.5, 1, 3)
+        # -miniangulos inf
+        asignmaterials('Weidmann', (DiamInt / 2 - 0.5), (AltVentanaNucleo - AltAxi) / 2 + dy + ax / 2, 1, 3)
+        asignmaterials('Weidmann', (DiamInt / 2 + Radial + 0.5), (AltVentanaNucleo - AltAxi) / 2 + dy + ax / 2, 1, 3)
+        # -miniangulos sup
+        asignmaterials('Weidmann', (DiamInt / 2 - 0.5), (AltVentanaNucleo + AltAxi) / 2 + dy - ax / 2, 1, 3)
+        asignmaterials('Weidmann', (DiamInt / 2 + Radial + 0.5), (AltVentanaNucleo + AltAxi) / 2 + dy - ax / 2, 1, 3)
         asignmaterials('kraftsolid', (DiamInt / 2 + Radial / 2), (AltVentanaNucleo + AltAxi) / 2 + dy - kraft/4, kraft/2,2)
 
 
