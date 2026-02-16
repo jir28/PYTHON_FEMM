@@ -1,5 +1,5 @@
 import femm
-import math
+
 
 from  AislamientosGeo  import drawanilloangular
 from  AislamientosGeo  import drawminiangulo
@@ -134,6 +134,8 @@ def drawdevanado(boundary_name,voltage,AltVentanaNucleo,AltAxi, Radial,axial_con
 #-------------------------------------------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------
 
+
+
 def drawdevanadoRegGap(AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy,separacion):
     ax = round(axial_cond - 1)
 
@@ -142,14 +144,15 @@ def drawdevanadoRegGap(AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft
         # --------DEV SIN AISLAMIENTO--------
 
         # ================dev sup================
-        femm.ei_drawrectangle(DiamInt / 2, (AltVentanaNucleo + separacion) / 2+dy, DiamInt / 2 + Radial,
-                              (AltVentanaNucleo + AltAxi) / 2+dy)
+
+
+        femm.ei_drawrectangle(DiamInt / 2, (AltVentanaNucleo + separacion) / 2+dy, DiamInt / 2 + Radial,(AltVentanaNucleo + AltAxi) / 2+dy)
 
         # --------CORNERS--------
         # crea corner inf izq
         femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo + separacion) / 2+dy, 0.5)
         # crea corner inf derec
-        femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo + separacion+dy) / 2, 0.5)
+        femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo + separacion) / 2 + dy, 0.5)
         # crea corner sup izq
         femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo + AltAxi) / 2+dy, 0.5)
         # crea corner sup derech
