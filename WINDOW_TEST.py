@@ -161,7 +161,6 @@ class MainWindow(QWidget):
         super().__init__()
         self.setWindowTitle("Configuración Radial de Devanados")
         self.resize(1000, 650)
-
         main = QVBoxLayout()
 
         #################Nucleo
