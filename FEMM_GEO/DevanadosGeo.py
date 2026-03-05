@@ -1,15 +1,19 @@
 import femm
-
+import math
 
 from  AislamientosGeo  import drawanilloangular
 from  AislamientosGeo  import drawminiangulo
 from  windingmaterials import nomesh
 from  Boundaries import defboundary
-#-------------------------------------------------------------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------------------------------------------------------------
-def drawdevbase(boundary_name,voltage,AltVentanaNucleo,AltAxi, Radial, DiamInt,kraft,dy):
-#Devanado base sin miniangulos, anillo angular, etc.
 
+from globals_array import agregar_altura,agregar_cabecerassup,agregar_cabecerasInf
+#-------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+def drawdevbase(boundary_name,voltage,AltVentanaNucleo,AltAxi, Radial, DiamInt,kraft,dy):
+ agregar_altura(AltAxi)
  if kraft == 0:
      femm.ei_drawrectangle(DiamInt / 2, (AltVentanaNucleo - AltAxi) / 2 + dy, DiamInt / 2 + Radial,
                            (AltVentanaNucleo + AltAxi) / 2 + dy)
@@ -87,27 +91,28 @@ def drawdevbase(boundary_name,voltage,AltVentanaNucleo,AltAxi, Radial, DiamInt,k
     femm.ei_createradius(DiamInt / 2 + kraft / 2, (AltVentanaNucleo - AltAxi) / 2 + kraft / 2 + dy, 0.5)
 
     # crea corner sup izq
-    #femm.ei_createradius(DiamInt / 2, (AltVentanaNucleo + AltAxi) / 2 + dy, 0.5 + kraft / 2)
-    #femm.ei_createradius(DiamInt / 2 + kraft / 2, (AltVentanaNucleo + AltAxi) / 2 + kraft / 2 + dy, 0.5)
     femm.ei_createradius(DiamInt / 2 , (AltVentanaNucleo + AltAxi) / 2 + dy, 0.5 + kraft / 2)
     femm.ei_createradius(DiamInt / 2  + kraft / 2, (AltVentanaNucleo + AltAxi) / 2 - kraft / 2 + dy, 0.5)
 
     # crea corner inf derec
     femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo - AltAxi) / 2 + dy, 0.5 + kraft / 2)
-    femm.ei_createradius(DiamInt / 2 + Radial + kraft / 2, (AltVentanaNucleo - AltAxi) / 2 - kraft / 2 + dy, 0.5)
+    femm.ei_createradius(DiamInt / 2 + Radial - kraft / 2, (AltVentanaNucleo - AltAxi) / 2 + kraft / 2 + dy, 0.5)
 
     # crea corner sup derech
     femm.ei_createradius(DiamInt / 2 + Radial, (AltVentanaNucleo + AltAxi) / 2 + dy, 0.5 + kraft / 2)
-    femm.ei_createradius(DiamInt / 2 + Radial + kraft / 2, (AltVentanaNucleo + AltAxi) / 2 + kraft / 2 + dy, 0.5)
+    femm.ei_createradius(DiamInt / 2 + Radial - kraft / 2, (AltVentanaNucleo + AltAxi) / 2 - kraft / 2 + dy, 0.5)
 
     # no mallar devanado
     nomesh((DiamInt / 2 + Radial / 2), AltVentanaNucleo / 2)
 
+ ##################CALCULO TACON B#####################
 
 #-------------------------------------------------------------------------------------------------------------------------------------
 
-def drawdevanado(boundary_name,voltage,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy):
-    # Devanado con miniangulos, anillo angular, etc.
+def drawdevanado(boundary_name,voltage,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,cabsup,cabinf,dy):
+    # crear lista solo la primera vez
+    agregar_cabecerassup(cabsup)
+    agregar_cabecerasInf(cabinf)
 
     ax = round(axial_cond - 1)
     if kraft==0:
@@ -134,11 +139,22 @@ def drawdevanado(boundary_name,voltage,AltVentanaNucleo,AltAxi, Radial,axial_con
 #-------------------------------------------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------
 
+def calctaconB_D(DiamInt,Radial,NumTiras,AnchoEspaciador,EsptiraInt,EsptiraExt):
+    pi = math.pi
+    Num = ((DiamInt - EsptiraInt) * pi - NumTiras * 19) * EsptiraInt + (
+            (DiamInt + 2 * Radial + EsptiraExt) * pi - NumTiras * 19) * EsptiraExt
+    Den = (DiamInt + 2 * Radial + EsptiraExt) * pi - NumTiras * (AnchoEspaciador + 10)
+    B = (Num / Den)
 
+    print(B)
 
-def drawdevanadoRegGap(AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,dy,separacion):
+#-------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------
+def drawdevanadoRegGap(AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,cabsup,cabinf,dy,separacion):
+    agregar_altura(AltAxi)
+    agregar_cabecerassup(cabsup)
+    agregar_cabecerasInf(cabinf)
     ax = round(axial_cond - 1)
-
     if kraft == 0:
         # --------DEV SIN AISLAMIENTO DE PAPEL--------
         # --------DEV SIN AISLAMIENTO--------
@@ -332,3 +348,4 @@ def drawdevanadoRegGap(AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft
                          (AltVentanaNucleo - separacion) / 2 - ax - 1 + dy)
         femm.ei_createradius(DiamInt / 2 - 1, (AltVentanaNucleo - separacion) / 2 + dy, 0.5 + 1)
         femm.ei_createradius(DiamInt / 2 + Radial + 1, (AltVentanaNucleo - separacion) / 2 + dy, 0.5 + 1)
+

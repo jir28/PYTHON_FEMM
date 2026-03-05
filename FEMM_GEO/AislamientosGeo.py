@@ -1,7 +1,7 @@
 import femm
 from  windingmaterials import asignmaterials
 
-#-------------------------------------------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------
 def drawminiangulo(AltVentanaNucleo,AltAxi, Radial, DiamInt, axial_cond,kraft,dy):
     l_recomp = Radial - 19 * 2 - 4
@@ -254,11 +254,62 @@ def drawanilloangular(AltVentanaNucleo,AltAxi, Radial, DiamInt, axial_cond,kraft
 
 #-------------------------------------------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------
-def drawcilindro(DimInt,AltVentanaNucleo,altaxicil, radialCil,dy):
-        DistToCil = DimInt / 2
+def drawcilindro(DimInt,AltVentanaNucleo, radialCil,dy,CabecerasDevSup,AlturasAxiDev):
+        AltmaxAxiDev = max(AlturasAxiDev)
+        #pos_max = AlturasAxiDev.index(AltmaxAxiDev)
+        altaxicil = AltmaxAxiDev
 
-        femm.ei_drawrectangle(DistToCil, (AltVentanaNucleo - altaxicil) / 2 + dy, DistToCil + radialCil,(AltVentanaNucleo + altaxicil) / 2 + dy)
+        DistToCil = DimInt / 2
+        x1=DistToCil
+        y1=(AltVentanaNucleo - altaxicil) / 2 + dy
+        x2=DistToCil + radialCil
+        y2=(AltVentanaNucleo + altaxicil) / 2 + dy
+
+        femm.ei_drawrectangle(x1, y1, x2,y2)
         # Asignar material
         asignmaterials('TIV', DistToCil+radialCil/2, altaxicil/2+ dy , 2, 3)
 
+   # Definir el arreglo fuera de la función
+acumulados = []
 
+def drawpackcil_barreras(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevSup,AlturasAxiDev):
+        AltmaxAxiDev = max(AlturasAxiDev)
+        pos_max = AlturasAxiDev.index(AltmaxAxiDev)
+
+
+        DimInt_actual = DimInt_inicial
+        n_cil = len(radiales)
+        if not acumulados:
+            # La lista está vacía, indica que no se tiene ningun cilindro previo, por lo que es el que esta pegado al core
+            print("acumulados está vacío, inicializando...")
+            des=-CabecerasDevinf[1]+CabecerasDevinf[pos_max]
+
+            # La lista NO está vacía
+        else:
+            des=CabecerasDevinf[pos_max]
+            print("acumulados ya tiene datos, seguimos acumulando...")
+            # Por ejemplo, podrías tomar el último valor como punto de partida
+
+        for i in range(n_cil):
+            # Sumar ducto antes del cilindro
+            if n_cil == 1:
+                DimInt_actual += 2 * ductos[0]
+            else:
+                DimInt_actual += 2 * ductos[i]
+
+            # Guardar diámetro después del ducto
+            acumulados.append(DimInt_actual)
+
+            radialCil = radiales[i]
+
+            # Dibujar el cilindro
+            drawcilindro(DimInt_actual, AltVentanaNucleo, radialCil, dy+des,CabecerasDevSup,AlturasAxiDev)
+
+            # Preparar diámetro para el siguiente cilindro
+            DimInt_actual += 2 * radialCil
+
+            # Guardar diámetro después del cilindro
+            acumulados.append(DimInt_actual)
+
+            # Ver todos los acumulados
+            #print(acumulados)

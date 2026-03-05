@@ -2,15 +2,35 @@ import femm
 from  windingmaterials import asignmaterials
 from  Boundaries import defboundary
 
-def drawcore(DiametroNucleo, AnchVentanaNucleo, AltVentanaNucleo, CabSupAT, CabinfAT):
-    # Dibujar el rectángulo de la ventana del núcleo
-    femm.ei_drawrectangle(DiametroNucleo/2, 0, AnchVentanaNucleo, AltVentanaNucleo)
+def drawcore(DiametroNucleo, AnchVentanaNucleo, AltVentanaNucleo, AlturasAxiDev, CabecerasDevSup, CabecerasDevinf):
+
+
+
+    for i in range(len(AlturasAxiDev)):
+        if (AlturasAxiDev[i] + CabecerasDevSup[i] + CabecerasDevinf[i]) == AltVentanaNucleo:
+            CabSup = CabecerasDevSup[i]
+            Cabinf = CabecerasDevinf[i]
+            print("CabSupAT:", CabSup)
+            print("CabinfAT:", Cabinf)
+
+            break  # terminamos el bucle al encontrar la primera coincidencia
+    else:
+        # Si no se encontró ningún valor que cumpla la condición
+        print("ERROR: revisar longitudes de cabecera o axiales de bobina, el núcleo no se dimensionó correctamente")
+        # Valores propuesto provisionales mientras el usuario corrije
+        CabSup = 5000
+        Cabinf = 5000
+
+
 
 
     # Calcular desplazamiento vertical del centro de la ventana
-    dy = -abs(
-        AltVentanaNucleo/2 - CabSupAT - (AltVentanaNucleo - CabSupAT - CabinfAT)/2
+    dy = +abs(
+        AltVentanaNucleo/2 - CabSup - (AltVentanaNucleo - CabSup - Cabinf)/2
     )
+    # Dibujar el rectángulo de la ventana del núcleo
+    femm.ei_drawrectangle(DiametroNucleo / 2, dy, AnchVentanaNucleo * 1.5, AltVentanaNucleo+dy)
+
 
     # Definiendo boundaries
     x1 = DiametroNucleo / 2 + AnchVentanaNucleo / 2
@@ -37,6 +57,6 @@ def drawcore(DiametroNucleo, AnchVentanaNucleo, AltVentanaNucleo, CabSupAT, Cabi
 
 
     # asignar material
-    asignmaterials('OilM', (AnchVentanaNucleo/2), (AltVentanaNucleo)-20, 10, 0)
+    asignmaterials('OilM', DiametroNucleo/2+AnchVentanaNucleo / 4, (AltVentanaNucleo)-20, 10, 0)
 
-    return dy
+
