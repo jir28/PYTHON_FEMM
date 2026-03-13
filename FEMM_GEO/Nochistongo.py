@@ -158,10 +158,10 @@ DimInt_inicial = 640
 
 
 # Espacios entre cilindros (ductos)
-ductos = [9, 3,3]
+ductos = [12, 6]
 
 # Espesores de cada cilindro
-radiales = [1,3]
+radiales = [3]
 
 drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevSup,AlturasAxiDev)
 
@@ -217,6 +217,5 @@ draw_arandela_sup_inf(AltVentanaNucleo,AlturasAxiDev,Radialesdev,DiamIntdev,Cabe
 #EJECUTRANDO SOLUCION Y MUESTRA DE RESULTADOS
 femm.ei_zoomnatural()
 femm.ei_saveas("Nochistongo.fee")
-femm.ei_createmesh()     # Genera la malla
-femm.ei_showmesh()       # Ocultar la malla
-input("Simulación terminada. Presiona Enter para salir...")
+#femm.ei_createmesh()     # Genera la malla
+#femm.ei_showmesh()       # Ocultar la malla
