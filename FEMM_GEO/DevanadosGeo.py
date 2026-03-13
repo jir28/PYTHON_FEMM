@@ -6,7 +6,9 @@ from  AislamientosGeo  import drawminiangulo
 from  windingmaterials import nomesh
 from  Boundaries import defboundary
 
-from globals_array import agregar_altura,agregar_cabecerassup,agregar_cabecerasInf
+from globals_array import agregar_altura, agregar_cabecerassup, agregar_cabecerasInf, agregar_taconb_d, agregar_radiales,agregar_dimint
+
+
 #-------------------------------------------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------
 
@@ -109,10 +111,13 @@ def drawdevbase(boundary_name,voltage,AltVentanaNucleo,AltAxi, Radial, DiamInt,k
 
 #-------------------------------------------------------------------------------------------------------------------------------------
 
-def drawdevanado(boundary_name,voltage,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,cabsup,cabinf,dy):
+def drawdevanado(boundary_name,voltage,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,cabsup,cabinf,
+                 NumTiras,AnchoEspaciador, EsptiraInt,EsptiraExt,dy):
     # crear lista solo la primera vez
     agregar_cabecerassup(cabsup)
     agregar_cabecerasInf(cabinf)
+    agregar_radiales(Radial)
+    agregar_dimint(DiamInt)
 
     ax = round(axial_cond - 1)
     if kraft==0:
@@ -135,7 +140,8 @@ def drawdevanado(boundary_name,voltage,AltVentanaNucleo,AltAxi, Radial,axial_con
         # --------DEV CON ANILLO MINIANGULO-------
             drawminiangulo(AltVentanaNucleo, AltAxi, Radial, DiamInt, axial_cond, kraft, dy)
 
-
+    tbd=calctaconB_D(DiamInt,Radial,NumTiras,AnchoEspaciador,EsptiraInt,EsptiraExt)
+    agregar_taconb_d(tbd)
 #-------------------------------------------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------
 
@@ -144,9 +150,13 @@ def calctaconB_D(DiamInt,Radial,NumTiras,AnchoEspaciador,EsptiraInt,EsptiraExt):
     Num = ((DiamInt - EsptiraInt) * pi - NumTiras * 19) * EsptiraInt + (
             (DiamInt + 2 * Radial + EsptiraExt) * pi - NumTiras * 19) * EsptiraExt
     Den = (DiamInt + 2 * Radial + EsptiraExt) * pi - NumTiras * (AnchoEspaciador + 10)
-    B = (Num / Den)
+
+    B=round(Num / Den)
 
     print(B)
+    return B
+
+
 
 #-------------------------------------------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------
@@ -154,6 +164,9 @@ def drawdevanadoRegGap(AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft
     agregar_altura(AltAxi)
     agregar_cabecerassup(cabsup)
     agregar_cabecerasInf(cabinf)
+    agregar_radiales(Radial)
+    agregar_dimint(DiamInt)
+
     ax = round(axial_cond - 1)
     if kraft == 0:
         # --------DEV SIN AISLAMIENTO DE PAPEL--------

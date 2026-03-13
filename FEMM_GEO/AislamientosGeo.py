@@ -1,6 +1,10 @@
-import femm
-from  windingmaterials import asignmaterials
+import math
 
+import femm
+
+
+from  windingmaterials import asignmaterials
+from globals_array import obtener_taconb_d
 #-----------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------
 def drawminiangulo(AltVentanaNucleo,AltAxi, Radial, DiamInt, axial_cond,kraft,dy):
@@ -253,17 +257,20 @@ def drawanilloangular(AltVentanaNucleo,AltAxi, Radial, DiamInt, axial_cond,kraft
         asignmaterials('kraftsolid', (DiamInt / 2 + Radial / 2), (AltVentanaNucleo + AltAxi) / 2 + dy - kraft/4, kraft/2,2)
 
 #-------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 #-------------------------------------------------------------------------------------------------------------------------------------
-def drawcilindro(DimInt,AltVentanaNucleo, radialCil,dy,CabecerasDevSup,AlturasAxiDev):
+def drawcilindro(DimInt , AltVentanaNucleo, radialCil, dy, desy1,desy2,AlturasAxiDev):
         AltmaxAxiDev = max(AlturasAxiDev)
         #pos_max = AlturasAxiDev.index(AltmaxAxiDev)
         altaxicil = AltmaxAxiDev
 
         DistToCil = DimInt / 2
         x1=DistToCil
-        y1=(AltVentanaNucleo - altaxicil) / 2 + dy
+        y1=(AltVentanaNucleo - altaxicil) / 2 + dy+desy1
         x2=DistToCil + radialCil
-        y2=(AltVentanaNucleo + altaxicil) / 2 + dy
+        y2=(AltVentanaNucleo + altaxicil) / 2 + dy+desy2
 
         femm.ei_drawrectangle(x1, y1, x2,y2)
         # Asignar material
@@ -272,21 +279,26 @@ def drawcilindro(DimInt,AltVentanaNucleo, radialCil,dy,CabecerasDevSup,AlturasAx
    # Definir el arreglo fuera de la función
 acumulados = []
 
-def drawpackcil_barreras(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevSup,AlturasAxiDev):
+def drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevsup,AlturasAxiDev):
         AltmaxAxiDev = max(AlturasAxiDev)
         pos_max = AlturasAxiDev.index(AltmaxAxiDev)
-
+        taconbd=max(obtener_taconb_d())
 
         DimInt_actual = DimInt_inicial
         n_cil = len(radiales)
         if not acumulados:
-            # La lista está vacía, indica que no se tiene ningun cilindro previo, por lo que es el que esta pegado al core
+            # La lista está vacía, indica que no se tiene ningun cilindro previo, por lo que es el que está pegado al core
             print("acumulados está vacío, inicializando...")
-            des=-CabecerasDevinf[1]+CabecerasDevinf[pos_max]
 
-            # La lista NO está vacía
+            desy1 = -CabecerasDevinf[1]
+            desy2 = CabecerasDevsup[pos_max] - taconbd - round(0.01 * AltVentanaNucleo) - 3
+
+
         else:
-            des=CabecerasDevinf[pos_max]
+            # La lista NO está vacía
+            desy1 = -CabecerasDevinf[1] + taconbd + 3
+            desy2 = CabecerasDevsup[pos_max] - taconbd - round(0.01 * AltVentanaNucleo) - 3
+
             print("acumulados ya tiene datos, seguimos acumulando...")
             # Por ejemplo, podrías tomar el último valor como punto de partida
 
@@ -303,7 +315,7 @@ def drawpackcil_barreras(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,Cab
             radialCil = radiales[i]
 
             # Dibujar el cilindro
-            drawcilindro(DimInt_actual, AltVentanaNucleo, radialCil, dy+des,CabecerasDevSup,AlturasAxiDev)
+            drawcilindro(DimInt_actual, AltVentanaNucleo, radialCil, dy, desy1, desy2, AlturasAxiDev)
 
             # Preparar diámetro para el siguiente cilindro
             DimInt_actual += 2 * radialCil
@@ -312,4 +324,5 @@ def drawpackcil_barreras(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,Cab
             acumulados.append(DimInt_actual)
 
             # Ver todos los acumulados
-            #print(acumulados)
+            # print(acumulados)
+

@@ -1,35 +1,17 @@
 import femm
+
+
 from  windingmaterials import asignmaterials
 from  Boundaries import defboundary
 
-def drawcore(DiametroNucleo, AnchVentanaNucleo, AltVentanaNucleo, AlturasAxiDev, CabecerasDevSup, CabecerasDevinf):
-
-
-
-    for i in range(len(AlturasAxiDev)):
-        if (AlturasAxiDev[i] + CabecerasDevSup[i] + CabecerasDevinf[i]) == AltVentanaNucleo:
-            CabSup = CabecerasDevSup[i]
-            Cabinf = CabecerasDevinf[i]
-            print("CabSupAT:", CabSup)
-            print("CabinfAT:", Cabinf)
-
-            break  # terminamos el bucle al encontrar la primera coincidencia
-    else:
-        # Si no se encontró ningún valor que cumpla la condición
-        print("ERROR: revisar longitudes de cabecera o axiales de bobina, el núcleo no se dimensionó correctamente")
-        # Valores propuesto provisionales mientras el usuario corrije
-        CabSup = 5000
-        Cabinf = 5000
-
-
-
+def drawcore(DiametroNucleo, AnchVentanaNucleo, AltVentanaNucleo,  CabSupAT, CabInfAT):
 
     # Calcular desplazamiento vertical del centro de la ventana
-    dy = +abs(
-        AltVentanaNucleo/2 - CabSup - (AltVentanaNucleo - CabSup - Cabinf)/2
+    dy = -abs(
+        AltVentanaNucleo/2 - CabSupAT - (AltVentanaNucleo - CabSupAT - CabInfAT)/2
     )
     # Dibujar el rectángulo de la ventana del núcleo
-    femm.ei_drawrectangle(DiametroNucleo / 2, dy, AnchVentanaNucleo * 1.5, AltVentanaNucleo+dy)
+    femm.ei_drawrectangle(DiametroNucleo / 2, 0, AnchVentanaNucleo * 3, AltVentanaNucleo)
 
 
     # Definiendo boundaries
@@ -59,4 +41,25 @@ def drawcore(DiametroNucleo, AnchVentanaNucleo, AltVentanaNucleo, AlturasAxiDev,
     # asignar material
     asignmaterials('OilM', DiametroNucleo/2+AnchVentanaNucleo / 4, (AltVentanaNucleo)-20, 10, 0)
 
+    return dy
+
+
+def draw_arandela_sup_inf(AltVentanaNucleo,altaxidev,radialesdev,dimintdev,cabsupdev,cabinfdev,espsup,espinf,dy):
+    maxpos = len(altaxidev)-1
+    print("maxpos:",maxpos)
+    #arandela sup
+    x1=dimintdev[0]/2
+    y1=cabsupdev[0]+(altaxidev[0]+AltVentanaNucleo)/2-espsup+dy
+    x2=dimintdev[maxpos]/2+radialesdev[maxpos]
+    y2=cabsupdev[0]+(altaxidev[0]+AltVentanaNucleo)/2+dy
+
+    femm.ei_drawrectangle(x1, y1, x2, y2)
+
+    #arandela inf
+    x1 = dimintdev[0]/2
+    y1 =  (AltVentanaNucleo-altaxidev[0])/2-cabinfdev[0]+dy
+    x2 = dimintdev[maxpos]/2 +radialesdev[maxpos]
+    y2 = (AltVentanaNucleo-altaxidev[0])/2-cabinfdev[0]+dy+espinf
+
+    femm.ei_drawrectangle(x1, y1, x2, y2)
 
