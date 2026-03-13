@@ -54,7 +54,7 @@ def drawsectorcapa_sup(Dimint,AltAxi,Radial,h2,dy):
 
     xi=Dimint/2
 
-    yi=AltAxi+h2
+    yi=AltAxi+h2+dy
 
     femm.ei_drawline(xi, yi, xi, yi+3)
     femm.ei_drawline(xi, yi+3, xi+Radial+4.7+3, yi+3)
