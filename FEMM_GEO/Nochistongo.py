@@ -1,7 +1,5 @@
 #PROYECTO: FEM WITH PYTHON FOR POWER TRANSFORMERS
 
-#SCOUT CLEAN ENERGY
-#fert: C18789150
 
 import femm
 from  DevanadosGeo import drawdevanado
@@ -219,3 +217,5 @@ femm.ei_zoomnatural()
 femm.ei_saveas("Nochistongo.fee")
 #femm.ei_createmesh()     # Genera la malla
 #femm.ei_showmesh()       # Ocultar la malla
+
+input("Sectores dibujados. Presiona Enter para salir...")
