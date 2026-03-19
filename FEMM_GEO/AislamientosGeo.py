@@ -279,7 +279,7 @@ def drawcilindro(DimInt , AltVentanaNucleo, radialCil, dy, desy1,desy2,AlturasAx
    # Definir el arreglo fuera de la función
 acumulados = []
 
-def drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevsup,AlturasAxiDev):
+def drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevsup,AlturasAxiDev,alturascil_recortesup,alturascil_recorteinf):
         AltmaxAxiDev = max(AlturasAxiDev)
         pos_max = AlturasAxiDev.index(AltmaxAxiDev)
         taconbd=max(obtener_taconb_d())
@@ -311,11 +311,35 @@ def drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDev
 
             # Guardar diámetro después del ducto
             acumulados.append(DimInt_actual)
-
             radialCil = radiales[i]
 
-            # Dibujar el cilindro
-            drawcilindro(DimInt_actual, AltVentanaNucleo, radialCil, dy, desy1, desy2, AlturasAxiDev)
+            #Codigo para recorte de alturas sup e inf en caso de necesitarse
+            # Supongamos que alturascil_recortesup[i] y alturascil_recorteinf[i]
+            # pueden ser 0 (sin recorte) o un valor distinto (con recorte)
+
+            sup = alturascil_recortesup[i]
+            inf = alturascil_recorteinf[i]
+
+            match (sup == 0, inf == 0):
+                case (True, True):
+                    # Sin recortes
+                    drawcilindro(DimInt_actual, AltVentanaNucleo, radialCil, dy, desy1, desy2, AlturasAxiDev)
+
+                case (False, True):
+                    # Solo recorte superior
+                    desy2 =  desy2-sup
+                    drawcilindro(DimInt_actual, AltVentanaNucleo, radialCil, dy, desy1, desy2, AlturasAxiDev)
+
+                case (True, False):
+                    # Solo recorte inferior
+                    desy1 =  desy1+inf
+                    drawcilindro(DimInt_actual, AltVentanaNucleo, radialCil, dy, desy1, desy2, AlturasAxiDev)
+
+                case (False, False):
+                    # Ambos recortes
+                    desy2 = desy2-sup
+                    desy1 = desy1+inf
+                    drawcilindro(DimInt_actual, AltVentanaNucleo, radialCil, dy, desy1, desy2, AlturasAxiDev)
 
             # Preparar diámetro para el siguiente cilindro
             DimInt_actual += 2 * radialCil

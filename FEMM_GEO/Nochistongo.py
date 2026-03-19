@@ -157,11 +157,13 @@ DimInt_inicial = 640
 
 # Espacios entre cilindros (ductos)
 ductos = [12, 6]
-
+#alturas
+alturascil_recortesup=[0,0]
+alturascil_recorteinf=[0,0]
 # Espesores de cada cilindro
 radiales = [3]
 
-drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevSup,AlturasAxiDev)
+drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevSup,AlturasAxiDev,alturascil_recortesup,alturascil_recorteinf)
 
 
 
@@ -172,11 +174,13 @@ DimInt_inicial = 744
 
 # Espacios entre cilindros (ductos)
 ductos = [6, 8,8,8,8,10,10,10,8,8,9,8]
-
+#alturas
+alturascil_recortesup=[0,0,0,0,0,0,0,0,0,0,0]
+alturascil_recorteinf=[0,0,0,0,0,0,0,0,0,0,0]
 # Espesores de cada cilindro
 radiales = [2,1,1,1,1,1,1,1,1,1,3]
 
-drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevSup,AlturasAxiDev)
+drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevSup,AlturasAxiDev,alturascil_recortesup,alturascil_recorteinf)
 
 
 #------------------- LV - REGAT-----------------------
@@ -186,11 +190,13 @@ DimInt_inicial = 1090
 
 # Espacios entre cilindros (ductos)
 ductos = [6, 8,10,10,8]
-
+#alturas
+alturascil_recortesup=[0,0,0,0]
+alturascil_recorteinf=[0,0,0,0]
 # Espesores de cada cilindro
 radiales = [2,1,1,4]
 
-drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevSup,AlturasAxiDev)
+drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevSup,AlturasAxiDev,alturascil_recortesup,alturascil_recorteinf)
 
 #------------------- REGAT -AT-----------------------
 
@@ -198,12 +204,14 @@ DimInt_inicial = 1236
 
 
 # Espacios entre cilindros (ductos)
-ductos = [6, 8,9,10,10,10,8]
-
+ductos = [6,8,9,10,10,10,8]
+#alturas
+alturascil_recortesup=[0,0,0,0,0,10]
+alturascil_recorteinf=[0,0,0,0,0,5]
 # Espesores de cada cilindro
 radiales = [2,1,1,1,1,3]
 
-drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevSup,AlturasAxiDev)
+drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDevinf,CabecerasDevSup,AlturasAxiDev,alturascil_recortesup,alturascil_recorteinf)
 
 
 #-----------------------------------------------------------------Dibujando proteccion arandela sup - inf-----------------------------------------------------------------------------------#
