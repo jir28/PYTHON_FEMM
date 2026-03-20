@@ -87,7 +87,35 @@ def drawsectorcapa_inf(Dimint,AltAxi,AltVentanaNucleo,Radial,h2,dy):
 
     return h2
 
+def drawanillo_eqsup(AltAxi,Dimint,radiosint,h,dy):
 
+    x1=Dimint/2+2
+    y1=AltAxi+h+2+dy
+    x2=Dimint/2+Radial
+    y2=AltAxi+h+2+hanillo_eq+dy
+
+
+    femm.ei_drawrectangle(x1, y1, x2,y2)
+    femm.ei_createradius(x1, y1, radiosint[0])
+    femm.ei_createradius(x2, y1, radiosint[1])
+    femm.ei_createradius(x1, y2, radiosint[2])
+    femm.ei_createradius(x2, y2, radiosint[2])
+
+
+    x1=Dimint/2
+    y1=AltAxi+h+dy
+    x2=Dimint/2+Radial+2
+    y2=AltAxi+h+2+hanillo_eq+2+dy
+
+
+    femm.ei_drawrectangle(x1, y1, x2,y2)
+    femm.ei_createradius(x1, y1, radiosint[0]+2)
+    femm.ei_createradius(x2, y1, radiosint[1]+2)
+    femm.ei_createradius(x1, y2, radiosint[2]+2)
+    femm.ei_createradius(x2, y2, radiosint[2]+2)
+
+    l=h+4+hanillo_eq
+    return l
 
 dy=10
 AltVentanaNucleo=2000
@@ -101,8 +129,8 @@ AltAxi=1000
 h=8+5 #(tacon+cabecera)
 
 # Llamada a la función
-h=drawsectoranillo_sup(Dimint,AltAxi,Radial,h,dy)
-drawsectoranillo_inf(Dimint,AltAxi,AltVentanaNucleo,Radial,h,dy)
+#h=drawsectoranillo_sup(Dimint,AltAxi,Radial,h,dy)
+#h=drawsectoranillo_inf(Dimint,AltAxi,AltVentanaNucleo,Radial,h,dy)
 
 
 
@@ -114,11 +142,23 @@ AltAxi=1000
 h2=60 #(tacon+cabecera)
 
 # Llamada a la función
-h2=drawsectorcapa_sup(Dimint,AltAxi,Radial,h2,dy)
+#h2=drawsectorcapa_sup(Dimint,AltAxi,Radial,h2,dy)
+#h2 = drawsectorcapa_inf(Dimint, AltAxi, AltVentanaNucleo, Radial, h2, dy)
 
-h2 = drawsectorcapa_inf(Dimint, AltAxi, AltVentanaNucleo, Radial, h2, dy)
 
-    # Ajustar vista
+#--------------------------------------------ANILLO EQUIPOTENCIAL COMPLETO-------------------------------------------
+
+dy=0
+h=8
+hanillo_eq=22
+radiosint = [2,2,9,9]
+AltAxi=1000
+
+l=drawanillo_eqsup(AltAxi,Dimint,radiosint,h,dy)
+
+
+# Ajustar vista
 femm.ei_zoomnatural()
+
 
 input("Sectores dibujados. Presiona Enter para salir...")
