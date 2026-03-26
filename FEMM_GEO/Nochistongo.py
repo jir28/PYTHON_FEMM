@@ -1,6 +1,5 @@
 #PROYECTO: FEM WITH PYTHON FOR POWER TRANSFORMERS
 
-
 import femm
 from  DevanadosGeo import drawdevanado
 from  CoreGeo import drawcore
