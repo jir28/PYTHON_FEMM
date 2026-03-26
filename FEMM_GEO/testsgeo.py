@@ -90,12 +90,12 @@ def drawsectorcapa_inf(Dimint,AltAxi,AltVentanaNucleo,Radial,h2,dy):
 
     return h2
 
-def drawanillo_eqsup(AltAxi,Dimint,radiosint,h,hanillo_eq,dy):
+def drawanillo_eqsup(AltAxi,AltVentanaNucleo,Dimint,radiosint,h,hanillo_eq,dy):
 
     x1=Dimint/2+2
-    y1=AltAxi+h+2+dy
+    y1=(AltVentanaNucleo + AltAxi)/2+h+2+dy
     x2=Dimint/2+Radial
-    y2=AltAxi+h+2+hanillo_eq+dy
+    y2=(AltVentanaNucleo + AltAxi)/2+h+2+hanillo_eq+dy
 
 
     femm.ei_drawrectangle(x1, y1, x2,y2)
@@ -106,9 +106,9 @@ def drawanillo_eqsup(AltAxi,Dimint,radiosint,h,hanillo_eq,dy):
 
 
     x1=Dimint/2
-    y1=AltAxi+h+dy
+    y1=(AltVentanaNucleo + AltAxi)/2+dy+h
     x2=Dimint/2+Radial+2
-    y2=AltAxi+h+2+hanillo_eq+2+dy
+    y2=(AltVentanaNucleo + AltAxi)/2+2+hanillo_eq+2+dy+h
 
 
     femm.ei_drawrectangle(x1, y1, x2,y2)
@@ -121,12 +121,12 @@ def drawanillo_eqsup(AltAxi,Dimint,radiosint,h,hanillo_eq,dy):
     return l
 
 
-def drawanillo_eqinf(AltAxi, AltVentanaNucleo, Dimint, radiosint,h,hanillo_eq, dy):
+def drawanillo_eqinf(AltAxi, AltVentanaNucleo, Dimint, radiosint,h1,hanillo_eq, dy):
     # Primer rectángulo inferior
     x1 = Dimint/2 + 2
-    y1 = (AltVentanaNucleo - AltAxi)/2 - h - 2 - dy
+    y1 = (AltVentanaNucleo - AltAxi)/2 - h1 - 2 + dy
     x2 = Dimint/2 + Radial
-    y2 = (AltVentanaNucleo - AltAxi)/2 - h - 2 - hanillo_eq - dy
+    y2 = (AltVentanaNucleo - AltAxi)/2 - h1 - 2 - hanillo_eq + dy
 
     femm.ei_drawrectangle(x1, y1, x2, y2)
     femm.ei_createradius(x1, y1, radiosint[0])
@@ -136,9 +136,9 @@ def drawanillo_eqinf(AltAxi, AltVentanaNucleo, Dimint, radiosint,h,hanillo_eq, d
 
     # Segundo rectángulo inferior (con margen extra)
     x1 = Dimint/2
-    y1 = (AltVentanaNucleo - AltAxi)/2 - h - dy
+    y1 = (AltVentanaNucleo - AltAxi)/2 - h1 + dy
     x2 = Dimint/2 + Radial + 2
-    y2 = (AltVentanaNucleo - AltAxi)/2 - h - 2 - hanillo_eq - 2 - dy
+    y2 = (AltVentanaNucleo - AltAxi)/2 - h1 - 2 - hanillo_eq - 2 + dy
 
     femm.ei_drawrectangle(x1, y1, x2, y2)
     femm.ei_createradius(x1, y1, radiosint[0] + 2)
@@ -189,20 +189,41 @@ drawdevanado("BoundLV",Boundaryvoltage,AltVentanaNucleo,AltAxi,
 
 
 
-#config 1 capa - 1 sector anillo
+#------------------DIBUJAR ANILLO EQ Y SECTORES SUPERIORES----------------
 Radial=58
 Dimint=974
-
 AltAxi=1770
-h=8+5 #(tacon+cabecera)
 
-# Llamada a la función
-h=drawsectoranillo_sup(Dimint,AltAxi,AltVentanaNucleo,Radial,h,dy)
-h=drawsectoranillo_inf(Dimint,AltAxi,AltVentanaNucleo,Radial,h,dy)
+radiosint=[2,2,5,5]
+hanillo_eq=22
 
-h1=h+10
+h=8
+drawanillo_eqsup(AltAxi,AltVentanaNucleo,Dimint,radiosint,h,hanillo_eq,dy)
+
+h=h+hanillo_eq+8
+drawsectoranillo_sup(Dimint,AltAxi,AltVentanaNucleo,Radial,h,dy)
+
+h=h+20
+drawsectorcapa_sup(Dimint,AltAxi,AltVentanaNucleo,Radial,h,dy)
+
+
+
+#------------------DIBUJAR ANILLO EQ Y SECTORES INFERIORES----------------
+Radial=58
+Dimint=974
+AltAxi=1770
+
+radiosint=[2,2,5,5]
+hanillo_eq=22
+
+h1=8
+drawanillo_eqinf(AltAxi, AltVentanaNucleo, Dimint, radiosint,h1,hanillo_eq, dy)
+
+h1=h1+hanillo_eq+8
+drawsectoranillo_inf(Dimint,AltAxi,AltVentanaNucleo,Radial,h1,dy)
+
+h1=h1+20
 drawsectorcapa_inf(Dimint,AltAxi,AltVentanaNucleo,Radial,h1,dy)
-drawsectorcapa_sup(Dimint,AltAxi,AltVentanaNucleo,Radial,h1,dy)
 
 
 femm.ei_zoomnatural()
