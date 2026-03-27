@@ -7,7 +7,7 @@ import femm
 from  CoreGeo import drawcore
 from  windingmaterials import materials
 from AislamientosGeo import  drawsectoranillo_inf, drawsectoranillo_sup, drawsectorcapa_sup, drawsectorcapa_inf
-from  DevanadosGeo import drawdevanado,drawdev_fullreg,drawanillo_eqinf,drawanillo_eqsup
+from  DevanadosGeo import drawdevanado,drawdev_fullreg,drawanillo_eqinf,drawanillo_eqsup,drawanillo_eqsup_reginf,drawanillo_eqinf_regsup
 
 femm.openfemm()
 femm.newdocument(1)  # electrostatics
@@ -107,7 +107,7 @@ BoundaryvoltageInf=0.0
 cabsup=110
 cabinf=110
 
-kraft=10
+kraft=2
 NumTiras = 28
 AnchoEspaciador = 30
 EsptiraInt = 8
@@ -148,10 +148,21 @@ rint=20
 offset=drawsectorcapa_inf(DiamInt,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
 
 
+h1=8 #distancia entre bobina y anillo eq
+radiosint=[2,2,9,9]
+hanillo_eq=22
+drawanillo_eqsup_reginf(AltVentanaNucleo,AltAxi, DiamInt, radiosint, Radial, 0, h1, hanillo_eq,separacion, dy)
+
+h1=8 #distancia entre bobina y anillo eq
+radiosint=[2,2,9,9]
+hanillo_eq=22
+drawanillo_eqinf_regsup(AltVentanaNucleo,AltAxi, DiamInt, radiosint, Radial, 0, h1, hanillo_eq,separacion, dy)
+
+
 
 
 
 femm.ei_zoomnatural()
 
 
-input("Sectores dibujados. Presiona Enter para salir...")
+input("Dibujo OK!. Presiona Enter para salir...")

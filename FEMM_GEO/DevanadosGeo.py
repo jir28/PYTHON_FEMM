@@ -346,7 +346,7 @@ def drawdevbase_reginf(boundary_name, voltage,AltVentanaNucleo,AltAxi, Radial, D
 
 
 
-# ------------------------------------------------------ANILLOS ANGULARES-------------------------------------------------------------------------------
+# ------------------------------------------------------ANILLOS ANGULARES-REG SUP-------------------------------------------------------------------------------
 def anilloangularsup_regsup(AltVentanaNucleo,AltAxi, Radial,DiamInt,kraft,ax,dy):
     if kraft == 0:
 
@@ -400,7 +400,7 @@ def anilloangularinf_regsup(AltVentanaNucleo,separacion, Radial,DiamInt,kraft,ax
 
 
 
-# ------------------------------------------------------ANILLOS ANGULARES-------------------------------------------------------------------------------
+# ------------------------------------------------------ANILLOS ANGULARES-REG INF-------------------------------------------------------------------------------
 
 def anilloangularsup_reginf(AltVentanaNucleo,separacion, Radial,DiamInt,kraft,ax,dy):
     if kraft == 0:
@@ -516,6 +516,83 @@ def drawanillo_eqinf(AltAxi, AltVentanaNucleo, Dimint, radiosint, Radial, offset
      return l
 
 
+def drawanillo_eqsup_reginf(AltVentanaNucleo,AltAxi, Dimint, radiosint, Radial, offset, h1, hanillo_eq,separacion, dy):
+
+     h = offset + h1
+
+     x1 = Dimint / 2 + 2
+     y1 = (AltVentanaNucleo - AltAxi) / 2 +(AltAxi-separacion)/2+ h + 2 + dy
+     x2 = Dimint / 2 + Radial
+     y2 = (AltVentanaNucleo - AltAxi) / 2 +(AltAxi-separacion)/2 + h + 2 + hanillo_eq + dy
+
+     femm.ei_drawrectangle(x1, y1, x2, y2)
+     femm.ei_createradius(x1, y1, radiosint[0])
+     femm.ei_createradius(x2, y1, radiosint[1])
+     femm.ei_createradius(x1, y2, radiosint[2])
+     femm.ei_createradius(x2, y2, radiosint[2])
+
+     x1 = Dimint / 2
+     y1 = (AltVentanaNucleo - AltAxi) / 2 +(AltAxi-separacion)/2 + dy + h
+     x2 = Dimint / 2 + Radial + 2
+     y2 = (AltVentanaNucleo - AltAxi) / 2 +(AltAxi-separacion)/2 + 2 + hanillo_eq + 2 + dy + h
+
+     femm.ei_drawrectangle(x1, y1, x2, y2)
+     femm.ei_createradius(x1, y1, radiosint[0] + 2)
+     femm.ei_createradius(x2, y1, radiosint[1] + 2)
+     femm.ei_createradius(x1, y2, radiosint[2] + 2)
+     femm.ei_createradius(x2, y2, radiosint[2] + 2)
+
+     # Asignar nomesh en el centro
+     nomesh(x1 + (x2 - x1) / 2, y1 + (y2 - y1) / 2)
+     # Asignar material
+     asignmaterials('Kraftloose', x1 + 1, y1 + (y2 - y1) / 2, 1, 3)
+
+     l = h + 4 + hanillo_eq
+     return l
+
+
+
+def drawanillo_eqinf_regsup(AltVentanaNucleo,AltAxi, Dimint, radiosint, Radial, offset, h1, hanillo_eq,separacion, dy):
+    h = offset + h1
+    # Primer rectángulo inferior
+    x1 = Dimint / 2 + 2
+    y1 =  AltVentanaNucleo/2 + separacion/2 - h - 2 + dy
+    x2 = Dimint / 2 + Radial
+    y2 = AltVentanaNucleo/2 + separacion/2  - h - 2 - hanillo_eq + dy
+
+    femm.ei_drawrectangle(x1, y1, x2, y2)
+    femm.ei_createradius(x1, y1, radiosint[0])
+    femm.ei_createradius(x2, y1, radiosint[1])
+    femm.ei_createradius(x1, y2, radiosint[2])
+    femm.ei_createradius(x2, y2, radiosint[2])
+
+    # Segundo rectángulo inferior (con margen extra)
+    x1 = Dimint / 2
+    y1 = AltVentanaNucleo/2 + separacion/2  - h + dy
+    x2 = Dimint / 2 + Radial + 2
+    y2 = AltVentanaNucleo/2 + separacion/2  - h - 2 - hanillo_eq - 2 + dy
+
+    femm.ei_drawrectangle(x1, y1, x2, y2)
+    femm.ei_createradius(x1, y1, radiosint[0] + 2)
+    femm.ei_createradius(x2, y1, radiosint[1] + 2)
+    femm.ei_createradius(x1, y2, radiosint[2] + 2)
+    femm.ei_createradius(x2, y2, radiosint[2] + 2)
+
+    # Asignar material
+    asignmaterials('Kraftloose', x1 + 1, y1 + (y2 - y1) / 2, 1, 3)
+
+    l = h + 4 + hanillo_eq
+    return l
+
+
+
+
+ #------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
 def drawdev_fullreg(boundary_nameregsup, boundary_namereginf,voltageregsup,voltagereginf,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,cabsup,cabinf,dy,separacion):
     agregar_altura(AltAxi)
@@ -533,3 +610,6 @@ def drawdev_fullreg(boundary_nameregsup, boundary_namereginf,voltageregsup,volta
     drawdevbase_reginf(boundary_namereginf, voltagereginf,AltVentanaNucleo,AltAxi, Radial, DiamInt,kraft,dy,separacion)
     anilloangularsup_reginf(AltVentanaNucleo, separacion, Radial, DiamInt, kraft, ax, dy)
     anilloangularinf_reginf(AltVentanaNucleo,AltAxi, Radial,DiamInt,kraft,ax,dy)
+
+
+
