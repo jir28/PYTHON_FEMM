@@ -259,7 +259,7 @@ def drawanilloangular(AltVentanaNucleo,AltAxi, Radial, DiamInt, axial_cond,kraft
         asignmaterials('Weidmann',(DiamInt/2 + Radial / 2), (AltVentanaNucleo - AltAxi) / 2 + dy - 0.5, 1,3)
         asignmaterials('kraftsolid', (DiamInt / 2 + Radial / 2), (AltVentanaNucleo + AltAxi) / 2 + dy - kraft/4, kraft/2,2)
 
-#-------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------SECTORES ANILLOS--------------------------------------------------------------
 
 def drawsectoranillo_sup(Dimint,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy):
     # Línea vertical izquierda
@@ -417,7 +417,7 @@ def drawpackcil(DimInt_inicial,AltVentanaNucleo, radiales,ductos,dy,CabecerasDev
 
             #Codigo para recorte de alturas sup e inf en caso de necesitarse
             # Supongamos que alturascil_recortesup[i] y alturascil_recorteinf[i]
-            # pueden ser 0 (sin recorte) o un valor distinto (con recorte)
+            # CON 0 - sin recorte  Y un valor distinto - con recorte
 
             sup = alturascil_recortesup[i]
             inf = alturascil_recorteinf[i]
