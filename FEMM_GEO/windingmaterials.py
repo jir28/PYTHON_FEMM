@@ -4,18 +4,19 @@ import femm
 
 
 def materials():
-
+#inicializa materiales
     oil=2.2
     Tiv=4.5
     weidmann=3.8
     Kraftsolid=3.2
+    Kraftloose=2.9
 
 
     femm.ei_addmaterial('OilM', oil, oil, 0)
     femm.ei_addmaterial('TIV',  Tiv,  Tiv, 0)
     femm.ei_addmaterial('Weidmann',  weidmann,  weidmann, 0)
     femm.ei_addmaterial('kraftsolid',  Kraftsolid,  Kraftsolid, 0)
-
+    femm.ei_addmaterial('Kraftloose', Kraftloose, Kraftloose, 0)
 
 def asignmaterials(type,x,y,meshsize,group):
 

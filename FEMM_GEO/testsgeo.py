@@ -1,7 +1,13 @@
+
+# *******************SCRIPT PARA EL TEST DE GEOMETRIA ANTES DE IMPLEMENTARSE EN EL ARCHIVO DEL PROYECTO*******************
+
 import femm
-from  DevanadosGeo import drawdevanado
+
+
 from  CoreGeo import drawcore
 from  windingmaterials import materials
+from AislamientosGeo import  drawsectoranillo_inf, drawsectoranillo_sup, drawsectorcapa_sup, drawsectorcapa_inf
+from  DevanadosGeo import drawdevanado,drawdev_fullreg,drawanillo_eqinf,drawanillo_eqsup
 
 femm.openfemm()
 femm.newdocument(1)  # electrostatics
@@ -10,151 +16,13 @@ materials()
 
 
 
-def drawsectoranillo_sup(Dimint,AltAxi,AltVentanaNucleo,Radial,h,dy):
-    # Línea vertical izquierda
-
-    xi=Dimint/2+Radial-5
-
-    yi=(AltVentanaNucleo + AltAxi) / 2 + dy+h
-
-    femm.ei_drawline(xi, yi, xi, yi+3)
-    femm.ei_drawline(xi, yi+3, xi-Radial-4.7-3, yi+3)
-    femm.ei_drawline( xi-Radial-4.7-3, yi+3, xi-Radial-4.7-3, yi-110)
-    femm.ei_drawline(xi - Radial  - 4.7 - 3, yi - 110, xi - Radial  - 4.7 , yi - 110)
-    femm.ei_drawline(xi - Radial  - 4.7 , yi - 110 , xi - Radial  - 4.7 , yi )
-    femm.ei_drawline(xi - Radial  - 4.7 , yi  , xi  , yi )
-
-    # Redondear esquinas
-    femm.ei_createradius(xi - Radial  - 4.7, yi, 10)
-    femm.ei_createradius(xi - Radial  - 4.7-3, yi+3, 13)
-    return h
-
-
-
-def drawsectoranillo_inf(Dimint,AltAxi,AltVentanaNucleo,Radial,h,dy):
-    # Línea vertical izquierda
-
-    xi=Dimint/2+Radial-5
-
-    yi=(AltVentanaNucleo-AltAxi)/2-h+dy
-
-    femm.ei_drawline(xi, yi, xi, yi-3)
-    femm.ei_drawline( xi, yi - 3, xi- Radial  - 4.7 , yi-3)
-    femm.ei_drawline( xi - Radial - 4.7, yi - 3, xi- Radial - 4.7 , yi+110)
-    femm.ei_drawline(xi - Radial - 4.7, yi + 110 , xi - Radial - 4.7+3, yi+110)
-    femm.ei_drawline( xi - Radial - 4.7+3, yi+110,xi - Radial - 4.7+3, yi )
-    femm.ei_drawline( xi - Radial - 4.7+3, yi, xi , yi )
-    # Redondear esquinas
-    femm.ei_createradius(xi - Radial - 4.7 + 3, yi, 10)
-    femm.ei_createradius(  xi- Radial  - 4.7 , yi-3, 13)
-
-
-    return h
-
-
-def drawsectorcapa_sup(Dimint,AltAxi,AltVentanaNucleo,Radial,h2,dy):
-    # Línea vertical izquierda
-
-    xi=Dimint/2
-
-    yi=(AltVentanaNucleo + AltAxi)/2+h2+dy
-
-    femm.ei_drawline(xi, yi, xi, yi+3)
-    femm.ei_drawline(xi, yi+3, xi+Radial+4.7+3, yi+3)
-    femm.ei_drawline(xi+Radial+4.7+3, yi+3,xi+Radial+4.7+3, yi-110)
-    femm.ei_drawline(xi+Radial+4.7+3, yi-110, xi+Radial+4.7, yi-110)
-    femm.ei_drawline( xi+Radial+4.7, yi-110, xi+Radial+4.7, yi)
-    femm.ei_drawline( xi + Radial + 4.7, yi, xi, yi)
-
-    # Redondear esquinas
-    femm.ei_createradius(xi+Radial+4.7, yi, 10)
-    femm.ei_createradius(xi+Radial+4.7+3, yi, 13)
-    return h2
-
-def drawsectorcapa_inf(Dimint,AltAxi,AltVentanaNucleo,Radial,h2,dy):
-    # Línea vertical derecha
-
-    xi = Dimint/2
-    yi = (AltVentanaNucleo - AltAxi)/2 - h2 + dy
-
-    femm.ei_drawline(xi, yi, xi, yi-3)
-    femm.ei_drawline(xi, yi-3, xi+Radial+4.7+3, yi-3)
-    femm.ei_drawline(xi+Radial+4.7+3, yi-3, xi+Radial+4.7+3, yi+110)
-    femm.ei_drawline(xi+Radial+4.7+3, yi+110, xi+Radial+4.7, yi+110)
-    femm.ei_drawline(xi+Radial+4.7, yi+110, xi+Radial+4.7, yi)
-    femm.ei_drawline(xi+Radial+4.7, yi, xi, yi)
-
-    # Redondear esquinas
-    femm.ei_createradius(xi+Radial+4.7, yi, 10)
-    femm.ei_createradius(xi+Radial+4.7+3, yi-3, 13)
-
-    return h2
-
-def drawanillo_eqsup(AltAxi,AltVentanaNucleo,Dimint,radiosint,h,hanillo_eq,dy):
-
-    x1=Dimint/2+2
-    y1=(AltVentanaNucleo + AltAxi)/2+h+2+dy
-    x2=Dimint/2+Radial
-    y2=(AltVentanaNucleo + AltAxi)/2+h+2+hanillo_eq+dy
-
-
-    femm.ei_drawrectangle(x1, y1, x2,y2)
-    femm.ei_createradius(x1, y1, radiosint[0])
-    femm.ei_createradius(x2, y1, radiosint[1])
-    femm.ei_createradius(x1, y2, radiosint[2])
-    femm.ei_createradius(x2, y2, radiosint[2])
-
-
-    x1=Dimint/2
-    y1=(AltVentanaNucleo + AltAxi)/2+dy+h
-    x2=Dimint/2+Radial+2
-    y2=(AltVentanaNucleo + AltAxi)/2+2+hanillo_eq+2+dy+h
-
-
-    femm.ei_drawrectangle(x1, y1, x2,y2)
-    femm.ei_createradius(x1, y1, radiosint[0]+2)
-    femm.ei_createradius(x2, y1, radiosint[1]+2)
-    femm.ei_createradius(x1, y2, radiosint[2]+2)
-    femm.ei_createradius(x2, y2, radiosint[2]+2)
-
-    l=h+4+hanillo_eq
-    return l
-
-
-def drawanillo_eqinf(AltAxi, AltVentanaNucleo, Dimint, radiosint,h1,hanillo_eq, dy):
-    # Primer rectángulo inferior
-    x1 = Dimint/2 + 2
-    y1 = (AltVentanaNucleo - AltAxi)/2 - h1 - 2 + dy
-    x2 = Dimint/2 + Radial
-    y2 = (AltVentanaNucleo - AltAxi)/2 - h1 - 2 - hanillo_eq + dy
-
-    femm.ei_drawrectangle(x1, y1, x2, y2)
-    femm.ei_createradius(x1, y1, radiosint[0])
-    femm.ei_createradius(x2, y1, radiosint[1])
-    femm.ei_createradius(x1, y2, radiosint[2])
-    femm.ei_createradius(x2, y2, radiosint[2])
-
-    # Segundo rectángulo inferior (con margen extra)
-    x1 = Dimint/2
-    y1 = (AltVentanaNucleo - AltAxi)/2 - h1 + dy
-    x2 = Dimint/2 + Radial + 2
-    y2 = (AltVentanaNucleo - AltAxi)/2 - h1 - 2 - hanillo_eq - 2 + dy
-
-    femm.ei_drawrectangle(x1, y1, x2, y2)
-    femm.ei_createradius(x1, y1, radiosint[0] + 2)
-    femm.ei_createradius(x2, y1, radiosint[1] + 2)
-    femm.ei_createradius(x1, y2, radiosint[2] + 2)
-    femm.ei_createradius(x2, y2, radiosint[2] + 2)
-
-    l = h + 4 + hanillo_eq
-    return l
-
  # --------------------------------------|COMIENZO DIBUJO|-----------------------------------------
 
     #información general del dibujo para dibujar el núcleo
     #CabecerasDevSup = [185, 60, 140 + 80, 495]
     #CabecerasDevinf = [185, 60, 80+30, 495]
     #AlturasAxiDev = [2000, 2250, 2210, 1380]
+
 AltVentanaNucleo = 2140
 AnchVentanaNucleo = 545
 DiametroNucleo = 640
@@ -175,7 +43,7 @@ Boundaryvoltage=0.0
 cabsup=110
 cabinf=110
 
-kraft=1.07
+kraft=2
 
 NumTiras = 28
 AnchoEspaciador = 30
@@ -184,46 +52,103 @@ EsptiraExt = 6
 
 
 
-drawdevanado("BoundLV",Boundaryvoltage,AltVentanaNucleo,AltAxi,
-             Radial,axial_cond, DiamInt,kraft,cabsup,cabinf,NumTiras,AnchoEspaciador, EsptiraInt,EsptiraExt,dy)
+drawdevanado("BoundLV",Boundaryvoltage,AltVentanaNucleo,AltAxi,Radial,axial_cond, DiamInt,kraft,cabsup,cabinf,NumTiras,AnchoEspaciador, EsptiraInt,EsptiraExt,dy)
 
 
 
-#------------------DIBUJAR ANILLO EQ Y SECTORES SUPERIORES----------------
+#------------------------------------------DIBUJAR ANILLO EQ Y SECTORES - SUPERIORES----------------------------
 Radial=58
-Dimint=974
+DiamInt=974
 AltAxi=1770
 
-radiosint=[2,2,5,5]
+
+h1=8 #distancia entre bobina y anillo eq
+radiosint=[2,2,9,9]
 hanillo_eq=22
+offset=drawanillo_eqsup(AltAxi,AltVentanaNucleo,DiamInt,radiosint,Radial,0,h1,hanillo_eq,dy)
 
-h=8
-drawanillo_eqsup(AltAxi,AltVentanaNucleo,Dimint,radiosint,h,hanillo_eq,dy)
+h1=9 #distancia de separación entre el elemento inferior(anillo, sector, arandela, etc)
+rint=15
+offset=drawsectoranillo_sup(DiamInt,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
 
-h=h+hanillo_eq+8
-drawsectoranillo_sup(Dimint,AltAxi,AltVentanaNucleo,Radial,h,dy)
-
-h=h+20
-drawsectorcapa_sup(Dimint,AltAxi,AltVentanaNucleo,Radial,h,dy)
-
+h1=8 #distancia de separación entre el elemento inferior
+rint=20
+offset=drawsectorcapa_sup(DiamInt,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
 
 
-#------------------DIBUJAR ANILLO EQ Y SECTORES INFERIORES----------------
+#------------------------------------------DIBUJAR ANILLO EQ Y SECTORES - INFERIORES----------------------------
 Radial=58
-Dimint=974
+Diamint=974
 AltAxi=1770
 
+
+
+h1=8 #distancia entre bobina y anillo eq
 radiosint=[2,2,5,5]
 hanillo_eq=22
+offset=drawanillo_eqinf(AltAxi,AltVentanaNucleo,Diamint,radiosint,Radial,0,h1,hanillo_eq,dy)
 
-h1=8
-drawanillo_eqinf(AltAxi, AltVentanaNucleo, Dimint, radiosint,h1,hanillo_eq, dy)
+h1=9 #distancia de separación entre el elemento inferior(anillo, sector, arandela, etc)
+rint=15
+offset=drawsectoranillo_inf(Diamint,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
 
-h1=h1+hanillo_eq+8
-drawsectoranillo_inf(Dimint,AltAxi,AltVentanaNucleo,Radial,h1,dy)
+h1=8 #distancia de separación entre el elemento inferior
+rint=15
+offset=drawsectorcapa_inf(Diamint,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
 
-h1=h1+20
-drawsectorcapa_inf(Dimint,AltAxi,AltVentanaNucleo,Radial,h1,dy)
+
+#------------------------------------------REG AT----------------------------
+AltAxi=1770
+Radial=58
+DiamInt=1200
+axial_cond=16.486
+BoundaryvoltageSup=0.0
+BoundaryvoltageInf=0.0
+cabsup=110
+cabinf=110
+
+kraft=10
+NumTiras = 28
+AnchoEspaciador = 30
+EsptiraInt = 8
+EsptiraExt = 6
+
+separacion=500
+
+
+drawdev_fullreg("BoundREGSup","BoundREGInf",BoundaryvoltageSup,BoundaryvoltageInf,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,cabsup,cabinf,dy,separacion)
+
+h1=8 #distancia entre bobina y anillo eq
+radiosint=[2,2,9,9]
+hanillo_eq=22
+offset=drawanillo_eqsup(AltAxi,AltVentanaNucleo,DiamInt,radiosint,Radial,0,h1,hanillo_eq,dy)
+
+h1=8 #distancia de separación entre el elemento inferior
+rint=20
+offset=drawsectoranillo_sup(DiamInt,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
+
+h1=8 #distancia de separación entre el elemento inferior
+rint=15
+offset=drawsectorcapa_sup(DiamInt,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
+
+
+
+
+h1=8 #distancia entre bobina y anillo eq
+radiosint=[2,2,9,9]
+hanillo_eq=22
+offset=drawanillo_eqinf(AltAxi,AltVentanaNucleo,DiamInt,radiosint,Radial,0,h1,hanillo_eq,dy)
+
+h1=8 #distancia de separación entre el elemento inferior
+rint=20
+offset=drawsectoranillo_inf(DiamInt,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
+
+h1=8 #distancia de separación entre el elemento inferior
+rint=20
+offset=drawsectorcapa_inf(DiamInt,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
+
+
+
 
 
 femm.ei_zoomnatural()

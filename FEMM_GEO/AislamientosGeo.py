@@ -2,9 +2,12 @@ import math
 
 import femm
 
-
 from  windingmaterials import asignmaterials
 from globals_array import obtener_taconb_d
+
+
+
+
 #-----------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------
 def drawminiangulo(AltVentanaNucleo,AltAxi, Radial, DiamInt, axial_cond,kraft,dy):
@@ -257,6 +260,105 @@ def drawanilloangular(AltVentanaNucleo,AltAxi, Radial, DiamInt, axial_cond,kraft
         asignmaterials('kraftsolid', (DiamInt / 2 + Radial / 2), (AltVentanaNucleo + AltAxi) / 2 + dy - kraft/4, kraft/2,2)
 
 #-------------------------------------------------------------------------------------------------------------------------------------
+
+def drawsectoranillo_sup(Dimint,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy):
+    # Línea vertical izquierda
+    h = offset + h1
+    xi=Dimint/2+Radial-5
+
+    yi=(AltVentanaNucleo + AltAxi) / 2 + dy+h
+
+    femm.ei_drawline(xi, yi, xi, yi+3)
+    femm.ei_drawline(xi, yi+3, xi-Radial-4.7-3, yi+3)
+    femm.ei_drawline( xi-Radial-4.7-3, yi+3, xi-Radial-4.7-3, yi-110)
+    femm.ei_drawline(xi - Radial  - 4.7 - 3, yi - 110, xi - Radial  - 4.7 , yi - 110)
+    femm.ei_drawline(xi - Radial  - 4.7 , yi - 110 , xi - Radial  - 4.7 , yi )
+    femm.ei_drawline(xi - Radial  - 4.7 , yi  , xi  , yi )
+
+    # Redondear esquinas
+    femm.ei_createradius(xi - Radial  - 4.7, yi, rint)
+    femm.ei_createradius(xi - Radial  - 4.7-3, yi+3, rint+3)
+
+    # Asignar material
+    asignmaterials('Weidmann', xi-3, yi+1.5, 1, 3)
+
+    return h+3 #+3mm por el espesor del sector
+
+
+
+def drawsectoranillo_inf(Dimint,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy):
+    # Línea vertical izquierda
+    h=offset + h1
+    xi=Dimint/2+Radial-5
+
+    yi=(AltVentanaNucleo-AltAxi)/2-h+dy
+
+    femm.ei_drawline(xi, yi, xi, yi-3)
+    femm.ei_drawline( xi, yi - 3, xi- Radial  - 4.7 , yi-3)
+    femm.ei_drawline( xi - Radial - 4.7, yi - 3, xi- Radial - 4.7 , yi+110)
+    femm.ei_drawline(xi - Radial - 4.7, yi + 110 , xi - Radial - 4.7+3, yi+110)
+    femm.ei_drawline( xi - Radial - 4.7+3, yi+110,xi - Radial - 4.7+3, yi )
+    femm.ei_drawline( xi - Radial - 4.7+3, yi, xi , yi )
+    # Redondear esquinas
+    femm.ei_createradius(xi - Radial - 4.7 + 3, yi, rint)
+    femm.ei_createradius(  xi- Radial  - 4.7 , yi-3, rint+3)
+
+    # Asignar material
+    asignmaterials('Weidmann', xi-3, yi-1.5, 1, 3)
+
+
+    return h+3 #+3mm por el espesor del sector
+
+
+def drawsectorcapa_sup(Dimint,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy):
+    h = offset + h1
+
+    # Línea vertical izquierda
+
+    xi=Dimint/2
+
+    yi=(AltVentanaNucleo + AltAxi)/2+h+dy
+
+    femm.ei_drawline(xi, yi, xi, yi+3)
+    femm.ei_drawline(xi, yi+3, xi+Radial+4.7+3, yi+3)
+    femm.ei_drawline(xi+Radial+4.7+3, yi+3,xi+Radial+4.7+3, yi-110)
+    femm.ei_drawline(xi+Radial+4.7+3, yi-110, xi+Radial+4.7, yi-110)
+    femm.ei_drawline( xi+Radial+4.7, yi-110, xi+Radial+4.7, yi)
+    femm.ei_drawline( xi + Radial + 4.7, yi, xi, yi)
+
+    # Redondear esquinas
+    femm.ei_createradius(xi+Radial+4.7, yi, rint)
+    femm.ei_createradius(xi+Radial+4.7+3, yi, rint+3)
+
+
+    # Asignar material
+    asignmaterials('Weidmann', xi+3, yi+1.5, 1, 3)
+
+    return h+3  #+3mm por el espesor del sector
+
+def drawsectorcapa_inf(Dimint,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy):
+    # Línea vertical derecha
+    h=offset + h1
+    xi = Dimint/2
+    yi = (AltVentanaNucleo - AltAxi)/2 - h + dy
+
+    femm.ei_drawline(xi, yi, xi, yi-3)
+    femm.ei_drawline(xi, yi-3, xi+Radial+4.7+3, yi-3)
+    femm.ei_drawline(xi+Radial+4.7+3, yi-3, xi+Radial+4.7+3, yi+110)
+    femm.ei_drawline(xi+Radial+4.7+3, yi+110, xi+Radial+4.7, yi+110)
+    femm.ei_drawline(xi+Radial+4.7, yi+110, xi+Radial+4.7, yi)
+    femm.ei_drawline(xi+Radial+4.7, yi, xi, yi)
+
+    # Redondear esquinas
+    femm.ei_createradius(xi+Radial+4.7, yi, rint)
+    femm.ei_createradius(xi+Radial+4.7+3, yi-3, rint+3)
+
+    # Asignar material
+    asignmaterials('Weidmann', xi+3, yi-1.5, 1, 3)
+
+    return h+3 #+3mm por el espesor del sector
+
+
 
 
 

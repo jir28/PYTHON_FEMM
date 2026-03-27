@@ -30,16 +30,15 @@ elif sele == 2:
  # --------------------------------------|COMIENZO DIBUJO|-----------------------------------------
 
     #información general del dibujo para dibujar el núcleo
-    #CabecerasDevSup = [185, 60, 140 + 80, 495]
-    #CabecerasDevinf = [185, 60, 80+30, 495]
-    #AlturasAxiDev = [2000, 2250, 2210, 1380]
-    AltVentanaNucleo = 2140
-    AnchVentanaNucleo = 545
-    DiametroNucleo = 640
-    CabSupAT=120 + 130
-    CabInfAT=120+30
 
-#Para dibujar el nucleo se necesita tener toras las cabeceras y alturas en arreglos
+AltVentanaNucleo = 2140
+AnchVentanaNucleo = 545
+DiametroNucleo = 640
+# se necesita la cabeceras del devanado de AT
+CabSupAT=120 + 130
+CabInfAT=120+30
+
+#Para dibujar el nucleo se necesita tener todas las cabeceras y alturas en arreglos
 dy=drawcore(DiametroNucleo, AnchVentanaNucleo, AltVentanaNucleo,  CabSupAT, CabInfAT)
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------#
@@ -50,7 +49,7 @@ Radial=31
 DiamInt=682
 axial_cond=13.039
 Boundaryvoltage=80000
-cabsup=115
+cabsup=115 #cabeceras del propio devanado
 cabinf=115
 
 kraft=0.0
@@ -62,8 +61,7 @@ EsptiraExt = 6
 
 
 
-drawdevanado("BoundTer",Boundaryvoltage,AltVentanaNucleo,AltAxi,
-             Radial,axial_cond, DiamInt,kraft,cabsup,cabinf,NumTiras,AnchoEspaciador, EsptiraInt,EsptiraExt,dy)
+drawdevanado("BoundTer",Boundaryvoltage,AltVentanaNucleo,AltAxi,Radial,axial_cond, DiamInt,kraft,cabsup,cabinf,NumTiras,AnchoEspaciador, EsptiraInt,EsptiraExt,dy)
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 #-----------------------------------------------------------------Dibujando dev LV-----------------------------------------------------------------------------------#
@@ -157,8 +155,8 @@ DimInt_inicial = 640
 # Espacios entre cilindros (ductos)
 ductos = [12, 6]
 #alturas
-alturascil_recortesup=[0,0]
-alturascil_recorteinf=[0,0]
+alturascil_recortesup=[0,0] #si se desea recortar el cilindro debido a la colocación de elementos como sectores
+alturascil_recorteinf=[0,0] #si se desea recortar el cilindro debido a la colocación de elementos como sectores
 # Espesores de cada cilindro
 radiales = [3]
 
@@ -174,8 +172,8 @@ DimInt_inicial = 744
 # Espacios entre cilindros (ductos)
 ductos = [6, 8,8,8,8,10,10,10,8,8,9,8]
 #alturas
-alturascil_recortesup=[0,0,0,0,0,0,0,0,0,0,0]
-alturascil_recorteinf=[0,0,0,0,0,0,0,0,0,0,0]
+alturascil_recortesup=[0,0,0,0,0,0,0,0,0,0,0] #si se desea recortar el cilindro debido a la colocación de elementos como sectores
+alturascil_recorteinf=[0,0,0,0,0,0,0,0,0,0,0] #si se desea recortar el cilindro debido a la colocación de elementos como sectores
 # Espesores de cada cilindro
 radiales = [2,1,1,1,1,1,1,1,1,1,3]
 
@@ -190,8 +188,8 @@ DimInt_inicial = 1090
 # Espacios entre cilindros (ductos)
 ductos = [6, 8,10,10,8]
 #alturas
-alturascil_recortesup=[0,0,0,0]
-alturascil_recorteinf=[0,0,0,0]
+alturascil_recortesup=[0,0,0,0] #si se desea recortar el cilindro debido a la colocación de elementos como sectores
+alturascil_recorteinf=[0,0,0,0] #si se desea recortar el cilindro debido a la colocación de elementos como sectores
 # Espesores de cada cilindro
 radiales = [2,1,1,4]
 
@@ -205,8 +203,8 @@ DimInt_inicial = 1236
 # Espacios entre cilindros (ductos)
 ductos = [6,8,9,10,10,10,8]
 #alturas
-alturascil_recortesup=[0,0,0,0,0,10]
-alturascil_recorteinf=[0,0,0,0,0,5]
+alturascil_recortesup=[0,0,0,0,0,10] #si se desea recortar el cilindro debido a la colocación de elementos como sectores
+alturascil_recorteinf=[0,0,0,0,0,5]  #si se desea recortar el cilindro debido a la colocación de elementos como sectores
 # Espesores de cada cilindro
 radiales = [2,1,1,1,1,3]
 
