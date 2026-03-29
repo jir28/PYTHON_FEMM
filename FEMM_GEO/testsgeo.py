@@ -7,7 +7,7 @@ import femm
 from  CoreGeo import drawcore
 from  windingmaterials import materials
 from AislamientosGeo import  drawsectoranillo_inf, drawsectoranillo_sup, drawsectorcapa_sup, drawsectorcapa_inf
-from  DevanadosGeo import drawdevanado,drawdev_fullreg,drawanillo_eqinf,drawanillo_eqsup,drawanillo_eqsup_reginf,drawanillo_eqinf_regsup
+from  DevanadosGeo import drawdevanado,drawdev_fullreg,drawanillo_eqinf,drawanillo_eqsup,drawanillo_eqsup_reginf,drawanillo_eqinf_regsup,draw_punta_central
 
 femm.openfemm()
 femm.newdocument(1)  # electrostatics
@@ -157,10 +157,14 @@ offset=drawsectoranillo_inf(DiamInt,AltAxi,AltVentanaNucleo,Radial,offset,h1,rin
 h1=8 #distancia de separación entre el elemento inferior
 rint=20
 offset=drawsectorcapa_inf(DiamInt,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
+#----------------------------------Dibujando Punta central
+L=170
+A=50 #duda de cuanto asignan
+esp=10
+DiamInt=974
+BoundaryvoltageAT=1E3
 
-
-
-
+draw_punta_central("BoundaAT", BoundaryvoltageAT, L, A, esp, DiamInt, AltVentanaNucleo, Radial, dy)
 
 
 femm.ei_zoomnatural()
