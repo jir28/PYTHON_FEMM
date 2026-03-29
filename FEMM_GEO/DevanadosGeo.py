@@ -703,8 +703,8 @@ def drawanillo_eqinf_regsup(boundary_name,voltage,AltVentanaNucleo,AltAxi, Dimin
     return l
  #--------------------------PUNTA CENTRAL-----------------------------
 
-def draw_punta_central(boundary_name,voltagereg,L,esp,separacion,AltVentanaNucleo,AltAxi, Radial,dy)
-
+def draw_punta_central(boundary_name,voltagereg,L,esp,separacion,AltVentanaNucleo,AltAxi, Radial,dy):
+    u=1
 
 
  #------------------------------------------------------------------------------------------------------------------------------------------------
