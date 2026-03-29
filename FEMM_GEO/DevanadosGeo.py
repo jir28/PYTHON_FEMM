@@ -705,7 +705,6 @@ def drawanillo_eqinf_regsup(boundary_name,voltage,AltVentanaNucleo,AltAxi, Dimin
 
 def draw_punta_central(boundary_name,voltagereg,L,A,esp,DimInt,AltVentanaNucleo, Radial,dy):
 
-    #Encintando
 
     x1=DimInt/2+Radial+5
     y1=AltVentanaNucleo/2+dy-A/2
