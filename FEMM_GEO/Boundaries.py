@@ -2,25 +2,18 @@
 
 import femm
 
+def defboundary(boundary_name, voltage, segment_points, GRUPO_FRONTERA):
 
-def defboundary(boundary_name, voltage, segment_points ,GRUPO_FRONTERA):
-    """
-    Asigna un boundary a varios segmentos en FEMM (electrostática)
+    # Intentar borrar si ya existe (no falla si no existe)
+    try:
+        femm.ei_deleteboundprop(boundary_name)
+    except:
+        pass
 
-    boundary_name: str, nombre de la boundary
-    voltage: float, potencial en V
-    segment_points: lista de tuplas [(x1,y1), (x2,y2), ...]
-                    con un punto sobre cada segmento
-    """
-    # Crear boundary
-
-    # femm.ei_setsegmentprop(boundary_name, element_size, automesh, hide,GRUPO_FRONTERA )
+    # Crear de nuevo con el voltaje actualizado
     femm.ei_addboundprop(boundary_name, voltage, 0, 0, 0, "0")
 
-    # Número de grupo para seleccionar todos los segmentos juntos
-
-
-    # Recorrer todos los puntos y asignar boundary
+    # Asignar a segmentos
     for (x, y) in segment_points:
         femm.ei_selectsegment(x, y)
         femm.ei_setsegmentprop(boundary_name, 0, 1, 0, GRUPO_FRONTERA, "0")

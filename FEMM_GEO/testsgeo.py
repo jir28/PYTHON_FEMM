@@ -18,11 +18,6 @@ materials()
 
  # --------------------------------------|COMIENZO DIBUJO|-----------------------------------------
 
-    #información general del dibujo para dibujar el núcleo
-    #CabecerasDevSup = [185, 60, 140 + 80, 495]
-    #CabecerasDevinf = [185, 60, 80+30, 495]
-    #AlturasAxiDev = [2000, 2250, 2210, 1380]
-
 AltVentanaNucleo = 2140
 AnchVentanaNucleo = 545
 DiametroNucleo = 640
@@ -65,7 +60,8 @@ AltAxi=1770
 h1=8 #distancia entre bobina y anillo eq
 radiosint=[2,2,9,9]
 hanillo_eq=22
-offset=drawanillo_eqsup(AltAxi,AltVentanaNucleo,DiamInt,radiosint,Radial,0,h1,hanillo_eq,dy)
+
+offset=drawanillo_eqsup("BoundLV",Boundaryvoltage,AltAxi,AltVentanaNucleo,DiamInt,radiosint,Radial,0,h1,hanillo_eq,dy)
 
 h1=9 #distancia de separación entre el elemento inferior(anillo, sector, arandela, etc)
 rint=15
@@ -81,12 +77,10 @@ Radial=58
 Diamint=974
 AltAxi=1770
 
-
-
 h1=8 #distancia entre bobina y anillo eq
 radiosint=[2,2,5,5]
 hanillo_eq=22
-offset=drawanillo_eqinf(AltAxi,AltVentanaNucleo,Diamint,radiosint,Radial,0,h1,hanillo_eq,dy)
+offset=drawanillo_eqinf("BoundLV",Boundaryvoltage,AltAxi,AltVentanaNucleo,Diamint,radiosint,Radial,0,h1,hanillo_eq,dy)
 
 h1=9 #distancia de separación entre el elemento inferior(anillo, sector, arandela, etc)
 rint=15
@@ -102,12 +96,11 @@ AltAxi=1770
 Radial=58
 DiamInt=1200
 axial_cond=16.486
-BoundaryvoltageSup=0.0
-BoundaryvoltageInf=0.0
+BoundaryvoltageREG=10E3
 cabsup=110
 cabinf=110
 
-kraft=2
+kraft=1
 NumTiras = 28
 AnchoEspaciador = 30
 EsptiraInt = 8
@@ -116,29 +109,47 @@ EsptiraExt = 6
 separacion=500
 
 
-drawdev_fullreg("BoundREGSup","BoundREGInf",BoundaryvoltageSup,BoundaryvoltageInf,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,cabsup,cabinf,dy,separacion)
+drawdev_fullreg("BoundREG",BoundaryvoltageREG,AltVentanaNucleo,AltAxi, Radial,axial_cond, DiamInt,kraft,cabsup,cabinf,dy,separacion)
+
+
+#---------------REGULATING-SUP
+h1=8 #distancia entre bobina y anillo eq
+radiosint=[2,2,9,9]
+hanillo_eq=22
+
+offset=drawanillo_eqsup("BoundREG",BoundaryvoltageREG,AltAxi,AltVentanaNucleo,DiamInt,radiosint,Radial,0,h1,hanillo_eq,dy)
+
 
 h1=8 #distancia entre bobina y anillo eq
 radiosint=[2,2,9,9]
 hanillo_eq=22
-offset=drawanillo_eqsup(AltAxi,AltVentanaNucleo,DiamInt,radiosint,Radial,0,h1,hanillo_eq,dy)
+drawanillo_eqinf_regsup("BoundREG",BoundaryvoltageREG,AltVentanaNucleo,AltAxi, DiamInt, radiosint, Radial, 0, h1, hanillo_eq,separacion, dy)
 
+
+#ELMENTOS DE AISLAMIENTO EXTRA
 h1=8 #distancia de separación entre el elemento inferior
 rint=20
 offset=drawsectoranillo_sup(DiamInt,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
 
 h1=8 #distancia de separación entre el elemento inferior
-rint=15
+rint=10
 offset=drawsectorcapa_sup(DiamInt,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
 
 
-
+#---------------REGULATING-INF
 
 h1=8 #distancia entre bobina y anillo eq
 radiosint=[2,2,9,9]
 hanillo_eq=22
-offset=drawanillo_eqinf(AltAxi,AltVentanaNucleo,DiamInt,radiosint,Radial,0,h1,hanillo_eq,dy)
+offset=drawanillo_eqinf("BoundREG",BoundaryvoltageREG,AltAxi,AltVentanaNucleo,DiamInt,radiosint,Radial,0,h1,hanillo_eq,dy)
 
+h1=8 #distancia entre bobina y anillo eq
+radiosint=[2,2,9,9]
+hanillo_eq=22
+drawanillo_eqsup_reginf("BoundREG",BoundaryvoltageREG,AltVentanaNucleo,AltAxi, DiamInt, radiosint, Radial, 0, h1, hanillo_eq,separacion, dy)
+
+
+#ELMENTOS DE AISLAMIENTO EXTRA
 h1=8 #distancia de separación entre el elemento inferior
 rint=20
 offset=drawsectoranillo_inf(DiamInt,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
@@ -147,16 +158,6 @@ h1=8 #distancia de separación entre el elemento inferior
 rint=20
 offset=drawsectorcapa_inf(DiamInt,AltAxi,AltVentanaNucleo,Radial,offset,h1,rint,dy)
 
-
-h1=8 #distancia entre bobina y anillo eq
-radiosint=[2,2,9,9]
-hanillo_eq=22
-drawanillo_eqsup_reginf(AltVentanaNucleo,AltAxi, DiamInt, radiosint, Radial, 0, h1, hanillo_eq,separacion, dy)
-
-h1=8 #distancia entre bobina y anillo eq
-radiosint=[2,2,9,9]
-hanillo_eq=22
-drawanillo_eqinf_regsup(AltVentanaNucleo,AltAxi, DiamInt, radiosint, Radial, 0, h1, hanillo_eq,separacion, dy)
 
 
 
